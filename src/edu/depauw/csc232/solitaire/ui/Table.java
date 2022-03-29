@@ -96,7 +96,7 @@ public class Table extends JPanel {
 	private Pile highlightPile;
 	private Packet packet;
 
-	private static final int HIGHLIGHT_BORDER_WIDTH = 2;
+	private static final int HIGHLIGHT_BORDER_WIDTH = 3;
 	private static final int SHADOW_WIDTH = 5;
 
 	private static final Color DRAG_SHADOW_COLOR = new Color(0, 0, 0, 64);
