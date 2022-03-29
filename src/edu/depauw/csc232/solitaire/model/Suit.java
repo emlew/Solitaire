@@ -22,7 +22,7 @@ public enum Suit
    {
       return abbrev;
    }
-   
+
    /**
     * @return true if this card is red
     */

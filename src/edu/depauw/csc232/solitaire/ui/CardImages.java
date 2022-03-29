@@ -11,7 +11,6 @@ import javax.imageio.ImageIO;
 
 import edu.depauw.csc232.solitaire.model.Card;
 
-
 /**
  * Manage a set of playing card images loaded from a directory of image files.
  * 
@@ -42,27 +41,22 @@ public class CardImages
       char[] ranks = { 'A', '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J',
          'Q', 'K' };
       char[] suits = { 'C', 'D', 'H', 'S' };
-      for (char rank : ranks)
-      {
-         for (char suit : suits)
-         {
+      for (char rank : ranks) {
+         for (char suit : suits) {
             names.add("" + rank + suit);
          }
       }
 
       images = new HashMap<String, Image>();
-      try
-      {
-         for (String name : names)
-         {
+      try {
+         for (String name : names) {
             String resourceName = resourcePrefix + name + suffix;
-            Image image = ImageIO
-                     .read(CardImages.class.getResource(resourceName));
+            Image image = ImageIO.read(
+                     CardImages.class.getResource(resourceName));
             images.put(name, image);
          }
       }
-      catch (IOException e)
-      {
+      catch (IOException e) {
          e.printStackTrace();
          System.exit(1);
       }
@@ -79,16 +73,13 @@ public class CardImages
     */
    public Image getImage(Card card)
    {
-      if (card == null)
-      {
+      if (card == null) {
          return images.get("blank");
       }
-      else if (card.isFaceUp())
-      {
+      else if (card.isFaceUp()) {
          return images.get(card.getAbbrev());
       }
-      else
-      {
+      else {
          return images.get("back");
       }
    }

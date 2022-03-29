@@ -14,27 +14,32 @@ import edu.depauw.csc232.solitaire.ui.Pile;
  * 
  * @author bhoward
  */
-public class WasteStrategy implements PileStrategy {
-	@Override
-	public boolean checkCanDrag(Pile waste) {
-		// Allow drag if not empty
-		return !waste.isEmpty();
-	}
+public class WasteStrategy implements PileStrategy
+{
+   @Override
+   public boolean checkCanDrag(Pile waste)
+   {
+      // Allow drag if not empty
+      return !waste.isEmpty();
+   }
 
-	@Override
-	public boolean checkCanDrop(Pile waste, Packet packet) {
-		// Drops are not allowed
-		return false;
-	}
+   @Override
+   public boolean checkCanDrop(Pile waste, Packet packet)
+   {
+      // Drops are not allowed
+      return false;
+   }
 
-	@Override
-	public boolean checkStartDrag(Pile waste, CardCollection cards) {
-		// Nothing to check -- only one card may be dragged since pile is squared
-		return true;
-	}
+   @Override
+   public boolean checkStartDrag(Pile waste, CardCollection cards)
+   {
+      // Nothing to check -- only one card may be dragged since pile is squared
+      return true;
+   }
 
-	@Override
-	public void handleClick(Pile waste, MouseEvent event) {
-		// Do nothing (future extension -- search for a place to move the card)
-	}
+   @Override
+   public void handleClick(Pile waste, MouseEvent event)
+   {
+      // Do nothing (future extension -- search for a place to move the card)
+   }
 }

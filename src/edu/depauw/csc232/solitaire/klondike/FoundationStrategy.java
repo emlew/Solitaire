@@ -14,28 +14,36 @@ import edu.depauw.csc232.solitaire.ui.Pile;
  * 
  * @author bhoward
  */
-public class FoundationStrategy implements PileStrategy {
-	@Override
-	public boolean checkCanDrag(Pile foundation) {
-		// Cards may not be dragged off the foundation
-		return false;
-	}
+public class FoundationStrategy implements PileStrategy
+{
+   @Override
+   public boolean checkCanDrag(Pile foundation)
+   {
+      // Cards may not be dragged off the foundation
+      return false;
+   }
 
-	@Override
-	public boolean checkCanDrop(Pile foundation, Packet packet) {
-		// Only allow single cards
-		if (packet.size() > 1) {
-			return false;
-		}
+   @Override
+   public boolean checkCanDrop(Pile foundation, Packet packet)
+   {
+      // Only allow single cards
+      if (packet.size() > 1) {
+         return false;
+      }
 
-		Card card = packet.getTop();
+      Card card = packet.getTop();
 
-		// Check for ace on empty foundation, or next card of same suit if non-empty
-		if (foundation.isEmpty()) {
-			return card.getRank() == Rank.Ace;
-		} else {
-			Card top = foundation.getTop();
-			return (card.getSuit() == top.getSuit()) && (card.getRank().getValue() - 1 == top.getRank().getValue());
-		}
-	}
+      // Check for ace on empty foundation, or next card of same suit if
+      // non-empty
+      if (foundation.isEmpty()) {
+         return card.getRank() == Rank.Ace;
+      }
+      else {
+         Card top = foundation.getTop();
+         return (card.getSuit() == top.getSuit()) && (card.getRank()
+                                                          .getValue()
+            - 1 == top.getRank()
+                      .getValue());
+      }
+   }
 }

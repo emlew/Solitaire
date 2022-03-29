@@ -35,7 +35,7 @@ public enum Rank
    {
       return abbrev;
    }
-   
+
    /**
     * @return the value for this rank
     */
