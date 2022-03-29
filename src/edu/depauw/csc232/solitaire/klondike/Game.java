@@ -37,7 +37,8 @@ public class Game {
 					tableauCards[j].add(stockCards.deal());
 				}
 
-				tableauCards[i].get(i).flip();
+				// Flip the top cards in the tableau
+				tableauCards[i].flipTop();
 			}
 
 			// Create the UI
