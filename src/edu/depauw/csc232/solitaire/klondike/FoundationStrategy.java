@@ -40,10 +40,8 @@ public class FoundationStrategy implements PileStrategy
       }
       else {
          Card top = foundation.getTop();
-         return (card.getSuit() == top.getSuit()) && (card.getRank()
-                                                          .getValue()
-            - 1 == top.getRank()
-                      .getValue());
+         return (card.getSuit() == top.getSuit())
+            && (card.getValue() - 1 == top.getValue());
       }
    }
 }

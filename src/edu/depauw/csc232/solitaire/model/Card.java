@@ -42,9 +42,25 @@ public class Card
       return rank;
    }
 
+   /**
+    * @return the value (1 to 13) corresponding to this card's rank
+    */
+   public int getValue()
+   {
+      return rank.getValue();
+   }
+
    public Suit getSuit()
    {
       return suit;
+   }
+
+   /**
+    * @return true if this card's suit is red (heart or diamond)
+    */
+   public boolean isRed()
+   {
+      return suit.isRed();
    }
 
    public boolean isFaceUp()

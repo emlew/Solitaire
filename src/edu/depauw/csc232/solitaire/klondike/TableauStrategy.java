@@ -38,13 +38,8 @@ public class TableauStrategy implements PileStrategy
       else {
          Card top = tableau.getTop();
          Card bottom = packet.getBottom();
-         return top.isFaceUp() && (top.getSuit()
-                                      .isRed() != bottom.getSuit()
-                                                        .isRed())
-            && (top.getRank()
-                   .getValue()
-               - 1 == bottom.getRank()
-                            .getValue());
+         return top.isFaceUp() && (top.isRed() != bottom.isRed())
+            && (top.getValue() - 1 == bottom.getValue());
       }
    }
 
