@@ -16,6 +16,10 @@ import edu.depauw.csc232.solitaire.ui.PileStrategy;
  */
 public class TableauStrategy implements PileStrategy
 {
+   public TableauStrategy(UI ui)
+   {
+   }
+
    @Override
    public boolean checkCanDrag(CardStack tableau)
    {

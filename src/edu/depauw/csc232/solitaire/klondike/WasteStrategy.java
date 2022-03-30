@@ -14,6 +14,10 @@ import edu.depauw.csc232.solitaire.ui.PileStrategy;
  */
 public class WasteStrategy implements PileStrategy
 {
+   public WasteStrategy(UI ui)
+   {
+   }
+
    @Override
    public boolean checkCanDrag(CardStack waste)
    {

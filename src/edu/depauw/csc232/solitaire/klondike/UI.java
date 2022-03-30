@@ -22,19 +22,19 @@ public class UI
     */
    public UI()
    {
-      PileStrategy wasteStrategy = new WasteStrategy();
+      PileStrategy wasteStrategy = new WasteStrategy(this);
       waste = Pile.makeSquared(wasteStrategy);
 
       PileStrategy stockStrategy = new StockStrategy(this);
       stock = Pile.makeSquared(stockStrategy);
 
-      PileStrategy tableauStrategy = new TableauStrategy();
+      PileStrategy tableauStrategy = new TableauStrategy(this);
       tableau = new Pile[7];
       for (int i = 0; i < 7; i++) {
          tableau[i] = Pile.makeVertical(tableauStrategy);
       }
 
-      PileStrategy foundationStrategy = new FoundationStrategy();
+      PileStrategy foundationStrategy = new FoundationStrategy(this);
       foundation = new Pile[4];
       for (int i = 0; i < 4; i++) {
          foundation[i] = Pile.makeSquared(foundationStrategy);
