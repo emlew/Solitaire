@@ -2,10 +2,8 @@ package edu.depauw.csc232.solitaire.klondike;
 
 import java.awt.event.MouseEvent;
 
-import edu.depauw.csc232.solitaire.model.CardCollection;
-import edu.depauw.csc232.solitaire.ui.Packet;
+import edu.depauw.csc232.solitaire.ui.CardStack;
 import edu.depauw.csc232.solitaire.ui.PileStrategy;
-import edu.depauw.csc232.solitaire.ui.Pile;
 
 /**
  * This PileStrategy encapsulates the rules for the waste pile in Klondike. The
@@ -17,28 +15,28 @@ import edu.depauw.csc232.solitaire.ui.Pile;
 public class WasteStrategy implements PileStrategy
 {
    @Override
-   public boolean checkCanDrag(Pile waste)
+   public boolean checkCanDrag(CardStack waste)
    {
       // Allow drag if not empty
       return !waste.isEmpty();
    }
 
    @Override
-   public boolean checkCanDrop(Pile waste, Packet packet)
+   public boolean checkCanDrop(CardStack waste, CardStack packet)
    {
       // Drops are not allowed
       return false;
    }
 
    @Override
-   public boolean checkStartDrag(Pile waste, CardCollection cards)
+   public boolean checkStartDrag(CardStack waste, CardStack packet)
    {
       // Nothing to check -- only one card may be dragged since pile is squared
       return true;
    }
 
    @Override
-   public void handleClick(Pile waste, MouseEvent event)
+   public void handleClick(CardStack waste, MouseEvent event)
    {
       // Do nothing (future extension -- search for a place to move the card)
    }

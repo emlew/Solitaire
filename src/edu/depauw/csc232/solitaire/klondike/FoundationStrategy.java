@@ -2,9 +2,8 @@ package edu.depauw.csc232.solitaire.klondike;
 
 import edu.depauw.csc232.solitaire.model.Card;
 import edu.depauw.csc232.solitaire.model.Rank;
-import edu.depauw.csc232.solitaire.ui.Packet;
+import edu.depauw.csc232.solitaire.ui.CardStack;
 import edu.depauw.csc232.solitaire.ui.PileStrategy;
-import edu.depauw.csc232.solitaire.ui.Pile;
 
 /**
  * This PileStrategy encapsulates the rules for a foundation pile in Klondike.
@@ -17,14 +16,14 @@ import edu.depauw.csc232.solitaire.ui.Pile;
 public class FoundationStrategy implements PileStrategy
 {
    @Override
-   public boolean checkCanDrag(Pile foundation)
+   public boolean checkCanDrag(CardStack foundation)
    {
       // Cards may not be dragged off the foundation
       return false;
    }
 
    @Override
-   public boolean checkCanDrop(Pile foundation, Packet packet)
+   public boolean checkCanDrop(CardStack foundation, CardStack packet)
    {
       // Only allow single cards
       if (packet.size() > 1) {

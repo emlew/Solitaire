@@ -3,9 +3,8 @@ package edu.depauw.csc232.solitaire.klondike;
 import java.awt.event.MouseEvent;
 
 import edu.depauw.csc232.solitaire.model.Card;
-import edu.depauw.csc232.solitaire.ui.Packet;
+import edu.depauw.csc232.solitaire.ui.CardStack;
 import edu.depauw.csc232.solitaire.ui.PileStrategy;
-import edu.depauw.csc232.solitaire.ui.Pile;
 
 /**
  * This PileStrategy encapsulates the rules for the stock pile in Klondike. The
@@ -23,33 +22,33 @@ public class StockStrategy implements PileStrategy
     * 
     * @param waste
     */
-   public StockStrategy(Pile waste)
+   public StockStrategy(UI ui)
    {
-      this.waste = waste;
+      this.ui = ui;
    }
 
    @Override
-   public boolean checkCanDrag(Pile stock)
+   public boolean checkCanDrag(CardStack stock)
    {
       // Not allowed to drag cards off of the stock
       return false;
    }
 
    @Override
-   public boolean checkCanDrop(Pile stock, Packet packet)
+   public boolean checkCanDrop(CardStack stock, CardStack packet)
    {
       // Not allowed to drop a packet on the stock
       return false;
    }
 
    @Override
-   public void handleClick(Pile stock, MouseEvent event)
+   public void handleClick(CardStack stock, MouseEvent event)
    {
       // If the stock is empty, turn over all of the cards from the waste pile
       // and refresh the stock
       if (stock.isEmpty()) {
-         while (!waste.isEmpty()) {
-            Card card = waste.deal();
+         while (!ui.waste.isEmpty()) {
+            Card card = ui.waste.deal();
             card.flip();
             stock.add(card);
          }
@@ -59,9 +58,9 @@ public class StockStrategy implements PileStrategy
       if (!stock.isEmpty()) {
          Card card = stock.deal();
          card.flip();
-         waste.add(card);
+         ui.waste.add(card);
       }
    }
 
-   private Pile waste;
+   private UI ui;
 }

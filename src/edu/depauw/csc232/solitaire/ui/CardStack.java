@@ -3,9 +3,12 @@ package edu.depauw.csc232.solitaire.ui;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.util.Collections;
+import java.util.List;
 
 import edu.depauw.csc232.solitaire.model.Card;
-import edu.depauw.csc232.solitaire.model.CardCollection;
+import edu.depauw.csc232.solitaire.model.Rank;
+import edu.depauw.csc232.solitaire.model.Suit;
 
 /**
  * A CardStack is an object that displays a collection of cards. It keeps track
@@ -17,14 +20,14 @@ import edu.depauw.csc232.solitaire.model.CardCollection;
 public abstract class CardStack
 {
    /**
-    * Construct a CardStack for the given packet, where each successive card is
-    * offset by the given amounts horizontally and vertically.
+    * Construct a CardStack for the given collection, where each successive card
+    * is offset by the given amounts horizontally and vertically.
     * 
     * @param cards
     * @param horizontal
     * @param vertical
     */
-   protected CardStack(CardCollection cards, int horizontal, int vertical)
+   protected CardStack(List<Card> cards, int horizontal, int vertical)
    {
       this.cards = cards;
       xOFFSET = horizontal * HOFFSET;
@@ -47,11 +50,9 @@ public abstract class CardStack
     * 
     * @param other
     */
-   public void addAll(CardCollection other)
+   public void addAll(List<Card> other)
    {
-      for (int i = 0; i < other.size(); i++) {
-         cards.add(other.get(i));
-      }
+      cards.addAll(other);
       invalidateImage();
    }
 
@@ -62,9 +63,63 @@ public abstract class CardStack
     */
    public Card deal()
    {
-      Card card = cards.deal();
+      Card card = cards.remove(cards.size() - 1);
       invalidateImage();
       return card;
+   }
+
+   /**
+    * Add a standard deck of 52 playing cards to this collection. May be called
+    * multiple times to play with multiple decks.
+    */
+   public void addDeck()
+   {
+      for (Suit suit : Suit.values()) {
+         addSuit(suit);
+      }
+      invalidateImage();
+   }
+
+   /**
+    * Add all 13 cards of the given suit to this collection, in order from Ace
+    * to King.
+    * 
+    * @param suit
+    */
+   public void addSuit(Suit suit)
+   {
+      for (Rank rank : Rank.values()) {
+         add(new Card(rank, suit));
+      }
+   }
+
+   /**
+    * Shuffle the cards in this stack.
+    */
+   public void shuffle()
+   {
+      Collections.shuffle(cards);
+      invalidateImage();
+   }
+
+   /**
+    * Flip the top card in this stack.
+    */
+   public void flipTop()
+   {
+      getTop().flip();
+      invalidateImage();
+   }
+
+   /**
+    * Flip all of the cards in this stack.
+    */
+   public void flipAll()
+   {
+      for (Card card : cards) {
+         card.flip();
+      }
+      invalidateImage();
    }
 
    /**
@@ -72,7 +127,7 @@ public abstract class CardStack
     */
    public Card getTop()
    {
-      return cards.getTop();
+      return cards.get(cards.size() - 1);
    }
 
    /**
@@ -80,11 +135,17 @@ public abstract class CardStack
     */
    public Card getBottom()
    {
-      return cards.getBottom();
+      return cards.get(0);
+   }
+
+   // TODO make this Iterable instead...
+   public Card get(int i)
+   {
+      return cards.get(i);
    }
 
    /**
-    * @return true if the stack is empty.
+    * @return true if the stack is empty
     */
    public boolean isEmpty()
    {
@@ -143,10 +204,10 @@ public abstract class CardStack
             cachedImage = images.getImage(null);
          }
          else if (xOFFSET == 0 && yOFFSET == 0) {
-            cachedImage = images.getImage(cards.getTop());
+            cachedImage = images.getImage(getTop());
          }
          else {
-            Image top = images.getImage(cards.getTop());
+            Image top = images.getImage(getTop());
             int width = top.getWidth(null) + xOFFSET * (cards.size() - 1);
             int height = top.getHeight(null) + yOFFSET * (cards.size() - 1);
             cachedImage = new BufferedImage(width, height,
@@ -187,7 +248,7 @@ public abstract class CardStack
    protected int xOFFSET;
    protected int yOFFSET;
 
-   protected CardCollection cards;
+   protected List<Card> cards;
 
    private Image cachedImage;
 }

@@ -1,8 +1,9 @@
 package edu.depauw.csc232.solitaire.ui;
 
 import java.awt.event.MouseEvent;
+import java.util.List;
 
-import edu.depauw.csc232.solitaire.model.CardCollection;
+import edu.depauw.csc232.solitaire.model.Card;
 
 /**
  * A Packet is a CardStack that contains a collection of cards currently being
@@ -13,7 +14,7 @@ import edu.depauw.csc232.solitaire.model.CardCollection;
 public class Packet extends CardStack
 {
    // Package-private constructor
-   Packet(Pile origin, CardCollection cards, int horizontal, int vertical)
+   Packet(Pile origin, List<Card> cards, int horizontal, int vertical)
    {
       super(cards, horizontal, vertical);
       this.origin = origin;
@@ -29,7 +30,7 @@ public class Packet extends CardStack
     * @param event
     *           the mouseReleased event for the drop
     */
-   public void endDrag(Pile target, MouseEvent event)
+   public void endDrag(CardStack target, MouseEvent event)
    {
       target.addAll(cards);
       origin.finishDrag(this, target, event);
@@ -50,7 +51,7 @@ public class Packet extends CardStack
    /**
     * @return the pile from which this packet was dragged
     */
-   public Pile getOrigin()
+   public CardStack getOrigin()
    {
       return origin;
    }

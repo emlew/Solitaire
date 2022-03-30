@@ -3,11 +3,9 @@ package edu.depauw.csc232.solitaire.klondike;
 import java.awt.event.MouseEvent;
 
 import edu.depauw.csc232.solitaire.model.Card;
-import edu.depauw.csc232.solitaire.model.CardCollection;
 import edu.depauw.csc232.solitaire.model.Rank;
-import edu.depauw.csc232.solitaire.ui.Packet;
+import edu.depauw.csc232.solitaire.ui.CardStack;
 import edu.depauw.csc232.solitaire.ui.PileStrategy;
-import edu.depauw.csc232.solitaire.ui.Pile;
 
 /**
  * This PileStrategy encapsulates the rules for a tableau pile in Klondike. Any
@@ -19,14 +17,14 @@ import edu.depauw.csc232.solitaire.ui.Pile;
 public class TableauStrategy implements PileStrategy
 {
    @Override
-   public boolean checkCanDrag(Pile tableau)
+   public boolean checkCanDrag(CardStack tableau)
    {
       // Allow drag if not empty
       return !tableau.isEmpty();
    }
 
    @Override
-   public boolean checkCanDrop(Pile tableau, Packet packet)
+   public boolean checkCanDrop(CardStack tableau, CardStack packet)
    {
       // Bottom card of packet must have opposite color and one-less value of
       // top
@@ -44,11 +42,11 @@ public class TableauStrategy implements PileStrategy
    }
 
    @Override
-   public boolean checkStartDrag(Pile tableau, CardCollection cards)
+   public boolean checkStartDrag(CardStack tableau, CardStack packet)
    {
       // Check that all of the cards are face-up
-      for (int i = 0; i < cards.size(); i++) {
-         Card card = cards.get(i);
+      for (int i = 0; i < packet.size(); i++) {
+         Card card = packet.get(i);
          if (!card.isFaceUp()) {
             return false;
          }
@@ -58,14 +56,14 @@ public class TableauStrategy implements PileStrategy
    }
 
    @Override
-   public void handleClick(Pile tableau, MouseEvent event)
+   public void handleClick(CardStack tableau, MouseEvent event)
    {
       // Do nothing (future extension -- search for a place to move the top
       // card)
    }
 
    @Override
-   public void finishDrag(Pile tableau, Packet packet, Pile target,
+   public void finishDrag(CardStack tableau, CardStack packet, CardStack target,
             MouseEvent event)
    {
       // Flip over an exposed top card, if any

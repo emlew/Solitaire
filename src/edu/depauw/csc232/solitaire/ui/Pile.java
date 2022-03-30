@@ -2,56 +2,51 @@ package edu.depauw.csc232.solitaire.ui;
 
 import java.awt.Image;
 import java.awt.event.MouseEvent;
-
-import edu.depauw.csc232.solitaire.model.CardCollection;
+import java.util.ArrayList;
 
 /**
- * A Pile is a CardStack located on a game Table. It is able to respond to mouse
- * clicks and drag/drop events.
+ * A Pile is a CardStack located on a game Table. It has a PileStrategy to be
+ * able to respond to mouse clicks and drag/drop events, and it owns a
+ * CardCollection that serves as its model object.
  * 
  * @author bhoward
  */
 public class Pile extends CardStack
 {
-   private Pile(CardCollection cards, PileStrategy strategy, int horizontal,
-            int vertical)
+   private Pile(PileStrategy strategy, int horizontal, int vertical)
    {
-      super(cards, horizontal, vertical);
+      super(new ArrayList<>(), horizontal, vertical);
       this.strategy = strategy;
    }
 
    /**
-    * Construct a horizontal PacketTableItem for the given cards and strategy.
+    * Construct a horizontal PacketTableItem for the given strategy.
     * 
-    * @param cards
     * @param strategy
     */
-   public static Pile makeHorizontal(CardCollection cards,
-            PileStrategy strategy)
+   public static Pile makeHorizontal(PileStrategy strategy)
    {
-      return new Pile(cards, strategy, 1, 0);
+      return new Pile(strategy, 1, 0);
    }
 
    /**
-    * Construct a vertical PacketTableItem for the given cards and strategy.
+    * Construct a vertical PacketTableItem for the given strategy.
     * 
-    * @param cards
     * @param strategy
     */
-   public static Pile makeVertical(CardCollection cards, PileStrategy strategy)
+   public static Pile makeVertical(PileStrategy strategy)
    {
-      return new Pile(cards, strategy, 0, 1);
+      return new Pile(strategy, 0, 1);
    }
 
    /**
-    * Construct a squared-up PacketTableItem for the given cards and strategy.
+    * Construct a squared-up PacketTableItem for the given strategy.
     * 
-    * @param cards
     * @param strategy
     */
-   public static Pile makeSquared(CardCollection cards, PileStrategy strategy)
+   public static Pile makeSquared(PileStrategy strategy)
    {
-      return new Pile(cards, strategy, 0, 0);
+      return new Pile(strategy, 0, 0);
    }
 
    /**
@@ -94,7 +89,7 @@ public class Pile extends CardStack
     *           the mouseMoved event being checked
     * @return true if this pile will accept the drop
     */
-   public boolean canDrop(Packet packet, MouseEvent event)
+   public boolean canDrop(CardStack packet, MouseEvent event)
    {
       return strategy.checkCanDrop(this, packet);
    }
@@ -128,24 +123,23 @@ public class Pile extends CardStack
       int n = identifyCard(event);
 
       // Create a new collection with the selected cards
-      CardCollection selectedCards = new CardCollection();
+      Packet packet = new Packet(this, new ArrayList<>(), xOFFSET / HOFFSET,
+               yOFFSET / VOFFSET);
       for (int i = n; i < cards.size(); i++) {
-         selectedCards.add(cards.get(i));
+         packet.add(cards.get(i));
       }
 
       // Check that the collection is OK to drag
-      if (!strategy.checkStartDrag(this, selectedCards)) {
+      if (!strategy.checkStartDrag(this, packet)) {
          return null;
       }
 
       // Remove those cards from our packet
-      for (int i = 0; i < selectedCards.size(); i++) {
-         cards.deal();
+      for (int i = 0; i < packet.size(); i++) {
+         cards.remove(cards.size() - 1);
       }
       invalidateImage();
 
-      Packet packet = new Packet(this, selectedCards, xOFFSET / HOFFSET,
-               yOFFSET / VOFFSET);
       packet.setX(getX() + n * xOFFSET);
       packet.setY(getY() + n * yOFFSET);
       return packet;
@@ -154,7 +148,7 @@ public class Pile extends CardStack
    /**
     * Perform any necessary post-drag cleanup.
     */
-   public void finishDrag(Packet packet, Pile target, MouseEvent event)
+   public void finishDrag(CardStack packet, CardStack target, MouseEvent event)
    {
       strategy.finishDrag(this, packet, target, event);
    }
