@@ -14,9 +14,9 @@ import edu.depauw.csc232.solitaire.model.Card;
 public class Packet extends CardStack
 {
    // Package-private constructor
-   Packet(Pile origin, List<Card> cards, int horizontal, int vertical)
+   Packet(Pile origin, int horizontal, int vertical)
    {
-      super(cards, horizontal, vertical);
+      super(horizontal, vertical);
       this.origin = origin;
    }
 

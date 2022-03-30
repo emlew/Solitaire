@@ -6,8 +6,7 @@ import java.util.ArrayList;
 
 /**
  * A Pile is a CardStack located on a game Table. It has a PileStrategy to be
- * able to respond to mouse clicks and drag/drop events, and it owns a
- * CardCollection that serves as its model object.
+ * able to respond to mouse clicks and drag/drop events.
  * 
  * @author bhoward
  */
@@ -15,7 +14,7 @@ public class Pile extends CardStack
 {
    private Pile(PileStrategy strategy, int horizontal, int vertical)
    {
-      super(new ArrayList<>(), horizontal, vertical);
+      super(horizontal, vertical);
       this.strategy = strategy;
    }
 
@@ -123,8 +122,7 @@ public class Pile extends CardStack
       int n = identifyCard(event);
 
       // Create a new collection with the selected cards
-      Packet packet = new Packet(this, new ArrayList<>(), xOFFSET / HOFFSET,
-               yOFFSET / VOFFSET);
+      Packet packet = new Packet(this, xOFFSET / HOFFSET, yOFFSET / VOFFSET);
       for (int i = n; i < cards.size(); i++) {
          packet.add(cards.get(i));
       }

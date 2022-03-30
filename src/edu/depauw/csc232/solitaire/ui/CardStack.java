@@ -3,6 +3,7 @@ package edu.depauw.csc232.solitaire.ui;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -20,18 +21,17 @@ import edu.depauw.csc232.solitaire.model.Suit;
 public abstract class CardStack
 {
    /**
-    * Construct a CardStack for the given collection, where each successive card
-    * is offset by the given amounts horizontally and vertically.
+    * Construct an initially empty CardStack, where each successive card will be
+    * offset by the given amounts horizontally and vertically.
     * 
-    * @param cards
     * @param horizontal
     * @param vertical
     */
-   protected CardStack(List<Card> cards, int horizontal, int vertical)
+   protected CardStack(int horizontal, int vertical)
    {
-      this.cards = cards;
-      xOFFSET = horizontal * HOFFSET;
-      yOFFSET = vertical * VOFFSET;
+      this.cards = new ArrayList<>();
+      this.xOFFSET = horizontal * HOFFSET;
+      this.yOFFSET = vertical * VOFFSET;
    }
 
    /**
