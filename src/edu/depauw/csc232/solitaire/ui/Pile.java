@@ -2,7 +2,6 @@ package edu.depauw.csc232.solitaire.ui;
 
 import java.awt.Image;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 
 /**
  * A Pile is a CardStack located on a game Table. It has a PileStrategy to be

@@ -1,9 +1,6 @@
 package edu.depauw.csc232.solitaire.ui;
 
 import java.awt.event.MouseEvent;
-import java.util.List;
-
-import edu.depauw.csc232.solitaire.model.Card;
 
 /**
  * A Packet is a CardStack that contains a collection of cards currently being
