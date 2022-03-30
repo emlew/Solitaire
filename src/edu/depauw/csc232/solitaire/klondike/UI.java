@@ -69,5 +69,4 @@ public class UI
          table.addItem(foundation[i]);
       }
    }
-
 }

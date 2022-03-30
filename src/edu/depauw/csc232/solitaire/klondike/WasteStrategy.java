@@ -38,6 +38,6 @@ public class WasteStrategy implements PileStrategy
    @Override
    public void handleClick(CardStack waste, MouseEvent event)
    {
-      // Do nothing (future extension -- search for a place to move the card)
+      // TODO search for a place to move the card
    }
 }

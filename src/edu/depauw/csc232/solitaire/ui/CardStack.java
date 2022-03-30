@@ -138,10 +138,18 @@ public abstract class CardStack
       return cards.get(0);
    }
 
-   // TODO make this Iterable instead...
-   public Card get(int i)
+   /**
+    * @return true if all of the cards in this stack are face-up
+    */
+   public boolean allFaceUp()
    {
-      return cards.get(i);
+      for (Card card : cards) {
+         if (!card.isFaceUp()) {
+            return false;
+         }
+      }
+
+      return true;
    }
 
    /**

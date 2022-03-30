@@ -27,8 +27,7 @@ public class TableauStrategy implements PileStrategy
    public boolean checkCanDrop(CardStack tableau, CardStack packet)
    {
       // Bottom card of packet must have opposite color and one-less value of
-      // top
-      // card in tableau, or bottom card is a King and the tableau is empty
+      // top card in tableau, or bottom card is a King and the tableau is empty
       if (tableau.isEmpty()) {
          Card bottom = packet.getBottom();
          return bottom.getRank() == Rank.King;
@@ -44,22 +43,14 @@ public class TableauStrategy implements PileStrategy
    @Override
    public boolean checkStartDrag(CardStack tableau, CardStack packet)
    {
-      // Check that all of the cards are face-up
-      for (int i = 0; i < packet.size(); i++) {
-         Card card = packet.get(i);
-         if (!card.isFaceUp()) {
-            return false;
-         }
-      }
-
-      return true;
+      // Check that all of the selected cards are face-up
+      return packet.allFaceUp();
    }
 
    @Override
    public void handleClick(CardStack tableau, MouseEvent event)
    {
-      // Do nothing (future extension -- search for a place to move the top
-      // card)
+      // TODO search for a place to move the top card
    }
 
    @Override

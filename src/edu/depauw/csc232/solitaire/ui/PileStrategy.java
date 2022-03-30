@@ -21,7 +21,7 @@ public interface PileStrategy
 
    /**
     * @param pile
-    * @param item
+    * @param packet
     * @return true if the Pile will allow the Packet to be dropped
     */
    default boolean checkCanDrop(CardStack pile, CardStack packet)

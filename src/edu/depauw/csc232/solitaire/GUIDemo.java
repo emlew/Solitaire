@@ -1,6 +1,10 @@
-package edu.depauw.csc232.solitaire.ui;
+package edu.depauw.csc232.solitaire;
 
 import java.io.IOException;
+
+import edu.depauw.csc232.solitaire.ui.GameFrame;
+import edu.depauw.csc232.solitaire.ui.Pile;
+import edu.depauw.csc232.solitaire.ui.PileStrategy;
 
 /**
  * A simple demonstration of using Piles on a Table. Cards may be dragged from

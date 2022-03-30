@@ -4,6 +4,7 @@ import java.awt.event.MouseEvent;
 
 import edu.depauw.csc232.solitaire.model.Card;
 import edu.depauw.csc232.solitaire.ui.CardStack;
+import edu.depauw.csc232.solitaire.ui.Pile;
 import edu.depauw.csc232.solitaire.ui.PileStrategy;
 
 /**
@@ -17,14 +18,14 @@ import edu.depauw.csc232.solitaire.ui.PileStrategy;
 public class StockStrategy implements PileStrategy
 {
    /**
-    * Construct the StockStrategy given a reference to the associated waste
-    * pile.
+    * Construct the StockStrategy with a reference to the waste pile out of the
+    * given UI.
     * 
-    * @param waste
+    * @param ui
     */
    public StockStrategy(UI ui)
    {
-      this.ui = ui;
+      this.waste = ui.waste;
    }
 
    @Override
@@ -44,23 +45,22 @@ public class StockStrategy implements PileStrategy
    @Override
    public void handleClick(CardStack stock, MouseEvent event)
    {
-      // If the stock is empty, turn over all of the cards from the waste pile
-      // and refresh the stock
       if (stock.isEmpty()) {
-         while (!ui.waste.isEmpty()) {
-            Card card = ui.waste.deal();
+         // If the stock is empty, turn over all of the cards from the waste
+         // pile and refresh the stock
+         while (!waste.isEmpty()) {
+            Card card = waste.deal();
             card.flip();
             stock.add(card);
          }
       }
-
-      // If the stock is non-empty, deal one card face-up onto the waste pile
-      if (!stock.isEmpty()) {
+      else {
+         // If the stock is non-empty, deal one card face-up onto the waste pile
          Card card = stock.deal();
          card.flip();
-         ui.waste.add(card);
+         waste.add(card);
       }
    }
 
-   private UI ui;
+   private Pile waste;
 }
