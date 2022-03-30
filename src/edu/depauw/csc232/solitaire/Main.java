@@ -30,9 +30,15 @@ public class Main
       klondike.addActionListener(event -> {
          Game game = new KlondikeGame();
          game.start();
-         frame.setVisible(false);
       });
       buttons.add(klondike);
+      
+      JButton quit = new JButton("Quit");
+      quit.setAlignmentX(JButton.CENTER_ALIGNMENT);
+      quit.addActionListener(event -> {
+         frame.dispose();
+      });
+      buttons.add(quit);
 
       frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
       frame.setSize(300, 200);
