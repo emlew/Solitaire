@@ -21,6 +21,10 @@ import java.awt.event.MouseEvent;
 public interface PileStrategy
 {
    /**
+    * Check whether the given Pile allows packets of one or more cards to be
+    * dragged off of it. To avoid lag, this should do minimal computation and
+    * return quickly.
+    * 
     * @param pile
     * @return true if the Pile allows dragging
     */
@@ -30,6 +34,10 @@ public interface PileStrategy
    }
 
    /**
+    * Check whether the given Pile will allow a particular Packet to be dropped
+    * on it. To avoid lag, this should do minimal computation and return
+    * quickly.
+    * 
     * @param pile
     * @param packet
     * @return true if the Pile will allow the Packet to be dropped
@@ -40,6 +48,8 @@ public interface PileStrategy
    }
 
    /**
+    * Check whether the given Packet may be dragged off of the Pile.
+    * 
     * @param pile
     * @param packet
     * @return true if the given Packet may be dragged away from the Pile
