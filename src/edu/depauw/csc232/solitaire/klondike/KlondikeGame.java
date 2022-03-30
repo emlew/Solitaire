@@ -1,5 +1,6 @@
 package edu.depauw.csc232.solitaire.klondike;
 
+import edu.depauw.csc232.solitaire.Game;
 import edu.depauw.csc232.solitaire.ui.GameFrame;
 
 /**
@@ -7,11 +8,11 @@ import edu.depauw.csc232.solitaire.ui.GameFrame;
  * 
  * @author bhoward
  */
-public class Game
+public class KlondikeGame implements Game
 {
    public static void main(String[] args)
    {
-      Game game = new Game();
+      Game game = new KlondikeGame();
       game.start();
    }
 
