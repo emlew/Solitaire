@@ -1,3 +1,13 @@
+////////////////////////////////////////////////////////////////////////////////
+// File:             Main.java
+// Course:           CSC 232, Spring 2022
+// Authors:          bhoward
+//
+// Acknowledgments:  None
+//
+// Online sources:   None
+////////////////////////////////////////////////////////////////////////////////
+
 package edu.depauw.csc232.solitaire;
 
 import javax.swing.Box;
@@ -7,17 +17,15 @@ import javax.swing.JFrame;
 import edu.depauw.csc232.solitaire.klondike.KlondikeGame;
 
 /**
+ * Main class for the solitaire application.
  * 
  * @author bhoward
  */
 public class Main
 {
-   public static void main(String[] args)
-   {
-      Main main = new Main();
-      main.start();
-   }
-
+   /**
+    * Display a window allowing the user to choose a game of solitaire.
+    */
    public void start()
    {
       JFrame frame = new JFrame("CSC232 Solitaire");
@@ -32,7 +40,7 @@ public class Main
          game.start();
       });
       buttons.add(klondike);
-      
+
       JButton quit = new JButton("Quit");
       quit.setAlignmentX(JButton.CENTER_ALIGNMENT);
       quit.addActionListener(event -> {
@@ -44,5 +52,11 @@ public class Main
       frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
       frame.setSize(200, 100);
       frame.setVisible(true);
+   }
+
+   public static void main(String[] args)
+   {
+      Main main = new Main();
+      main.start();
    }
 }

@@ -1,3 +1,13 @@
+////////////////////////////////////////////////////////////////////////////////
+// File:             GameFrame.java
+// Course:           CSC 232, Spring 2022
+// Authors:          bhoward
+//
+// Acknowledgments:  None
+//
+// Online sources:   None
+////////////////////////////////////////////////////////////////////////////////
+
 package edu.depauw.csc232.solitaire.ui;
 
 import java.awt.Color;
@@ -40,8 +50,8 @@ public class GameFrame extends JFrame
       setVisible(true);
    }
 
-   private Table table;
-   private Consumer<Table> layout;
+   private final Table table;
+   private final Consumer<Table> layout;
 
    private static final Color DARK_GREEN = new Color(0, 128, 0);
 }

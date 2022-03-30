@@ -1,3 +1,13 @@
+////////////////////////////////////////////////////////////////////////////////
+// File:             CardStack.java
+// Course:           CSC 232, Spring 2022
+// Authors:          bhoward
+//
+// Acknowledgments:  None
+//
+// Online sources:   None
+////////////////////////////////////////////////////////////////////////////////
+
 package edu.depauw.csc232.solitaire.ui;
 
 import java.awt.Graphics;
@@ -57,18 +67,6 @@ public abstract class CardStack
    }
 
    /**
-    * Deal one card off the top of this stack.
-    * 
-    * @return the card
-    */
-   public Card deal()
-   {
-      Card card = cards.remove(cards.size() - 1);
-      invalidateImage();
-      return card;
-   }
-
-   /**
     * Add a standard deck of 52 playing cards to this collection. May be called
     * multiple times to play with multiple decks.
     */
@@ -94,51 +92,6 @@ public abstract class CardStack
    }
 
    /**
-    * Shuffle the cards in this stack.
-    */
-   public void shuffle()
-   {
-      Collections.shuffle(cards);
-      invalidateImage();
-   }
-
-   /**
-    * Flip the top card in this stack.
-    */
-   public void flipTop()
-   {
-      getTop().flip();
-      invalidateImage();
-   }
-
-   /**
-    * Flip all of the cards in this stack.
-    */
-   public void flipAll()
-   {
-      for (Card card : cards) {
-         card.flip();
-      }
-      invalidateImage();
-   }
-
-   /**
-    * @return the top card in the stack
-    */
-   public Card getTop()
-   {
-      return cards.get(cards.size() - 1);
-   }
-
-   /**
-    * @return the bottom card in the stack
-    */
-   public Card getBottom()
-   {
-      return cards.get(0);
-   }
-
-   /**
     * @return true if all of the cards in this stack are face-up
     */
    public boolean allFaceUp()
@@ -153,53 +106,48 @@ public abstract class CardStack
    }
 
    /**
-    * @return true if the stack is empty
+    * Deal one card off the top of this stack.
+    * 
+    * @return the card
     */
-   public boolean isEmpty()
+   public Card deal()
    {
-      return cards.isEmpty();
+      Card card = cards.remove(cards.size() - 1);
+      invalidateImage();
+      return card;
    }
 
    /**
-    * @return the number of cards in the stack
+    * Flip all of the cards in this stack.
     */
-   public int size()
+   public void flipAll()
    {
-      return cards.size();
+      for (Card card : cards) {
+         card.flip();
+      }
+      invalidateImage();
    }
 
    /**
-    * @return the current x-coordinate of the upper-left corner of this stack
+    * Flip the top card in this stack.
     */
-   public int getX()
+   public void flipTop()
    {
-      return x;
+      getTop().flip();
+      invalidateImage();
    }
 
    /**
-    * @param x
-    *           the new x-coordinate of the upper-left corner of this stack
+    * @return the bottom card in the stack
     */
-   public void setX(int x)
+   public Card getBottom()
    {
-      this.x = x;
+      return cards.get(0);
    }
 
-   /**
-    * @return the current y-coordinate of the upper-left corner of this stack
-    */
-   public int getY()
+   protected Image getCachedImage()
    {
-      return y;
-   }
-
-   /**
-    * @param y
-    *           the new y-coordinate of the upper-left corner of this stack
-    */
-   public void setY(int y)
-   {
-      this.y = y;
+      return cachedImage;
    }
 
    /**
@@ -233,9 +181,28 @@ public abstract class CardStack
       return cachedImage;
    }
 
-   protected Image getCachedImage()
+   /**
+    * @return the top card in the stack
+    */
+   public Card getTop()
    {
-      return cachedImage;
+      return cards.get(cards.size() - 1);
+   }
+
+   /**
+    * @return the current x-coordinate of the upper-left corner of this stack
+    */
+   public int getX()
+   {
+      return x;
+   }
+
+   /**
+    * @return the current y-coordinate of the upper-left corner of this stack
+    */
+   public int getY()
+   {
+      return y;
    }
 
    /**
@@ -247,16 +214,59 @@ public abstract class CardStack
       cachedImage = null;
    }
 
+   /**
+    * @return true if the stack is empty
+    */
+   public boolean isEmpty()
+   {
+      return cards.isEmpty();
+   }
+
+   /**
+    * @param x
+    *           the new x-coordinate of the upper-left corner of this stack
+    */
+   public void setX(int x)
+   {
+      this.x = x;
+   }
+
+   /**
+    * @param y
+    *           the new y-coordinate of the upper-left corner of this stack
+    */
+   public void setY(int y)
+   {
+      this.y = y;
+   }
+
+   /**
+    * Shuffle the cards in this stack.
+    */
+   public void shuffle()
+   {
+      Collections.shuffle(cards);
+      invalidateImage();
+   }
+
+   /**
+    * @return the number of cards in the stack
+    */
+   public int size()
+   {
+      return cards.size();
+   }
+
    private int x;
    private int y;
 
-   protected static int HOFFSET = 12;
-   protected static int VOFFSET = 18;
+   protected final int xOFFSET;
+   protected final int yOFFSET;
 
-   protected int xOFFSET;
-   protected int yOFFSET;
-
-   protected List<Card> cards;
-
+   protected final List<Card> cards;
    private Image cachedImage;
+
+   protected static final int HOFFSET = 12;
+
+   protected static final int VOFFSET = 18;
 }

@@ -1,3 +1,13 @@
+////////////////////////////////////////////////////////////////////////////////
+// File:             Card.java
+// Course:           CSC 232, Spring 2022
+// Authors:          bhoward
+//
+// Acknowledgments:  None
+//
+// Online sources:   None
+////////////////////////////////////////////////////////////////////////////////
+
 package edu.depauw.csc232.solitaire.model;
 
 /**
@@ -37,9 +47,27 @@ public class Card
       this.faceUp = faceUp;
    }
 
+   /**
+    * Change the state (face-up/face-down) by flipping the card over.
+    */
+   public void flip()
+   {
+      faceUp = !faceUp;
+   }
+
+   public String getAbbrev()
+   {
+      return "" + rank.getAbbrev() + suit.getAbbrev();
+   }
+
    public Rank getRank()
    {
       return rank;
+   }
+
+   public Suit getSuit()
+   {
+      return suit;
    }
 
    /**
@@ -50,9 +78,9 @@ public class Card
       return rank.getValue();
    }
 
-   public Suit getSuit()
+   public boolean isFaceUp()
    {
-      return suit;
+      return faceUp;
    }
 
    /**
@@ -63,24 +91,6 @@ public class Card
       return suit.isRed();
    }
 
-   public boolean isFaceUp()
-   {
-      return faceUp;
-   }
-
-   public String getAbbrev()
-   {
-      return "" + rank.getAbbrev() + suit.getAbbrev();
-   }
-
-   /**
-    * Change the state (face-up/face-down) by flipping the card over.
-    */
-   public void flip()
-   {
-      faceUp = !faceUp;
-   }
-
    @Override
    public String toString()
    {
@@ -88,7 +98,7 @@ public class Card
          + "]";
    }
 
-   private Rank rank;
-   private Suit suit;
+   private final Rank rank;
+   private final Suit suit;
    private boolean faceUp;
 }

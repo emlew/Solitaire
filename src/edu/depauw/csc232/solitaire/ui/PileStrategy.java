@@ -1,3 +1,13 @@
+////////////////////////////////////////////////////////////////////////////////
+// File:             PileStrategy.java
+// Course:           CSC 232, Spring 2022
+// Authors:          bhoward
+//
+// Acknowledgments:  None
+//
+// Online sources:   None
+////////////////////////////////////////////////////////////////////////////////
+
 package edu.depauw.csc232.solitaire.ui;
 
 import java.awt.event.MouseEvent;
@@ -40,16 +50,6 @@ public interface PileStrategy
    }
 
    /**
-    * Respond to a click on the given Pile.
-    * 
-    * @param pile
-    * @param event
-    */
-   default void handleClick(CardStack pile, MouseEvent event)
-   {
-   }
-
-   /**
     * Perform clean-up on the origin and target Piles after a drag is completed.
     * The cards will have already been added to the target by the time this is
     * called.
@@ -61,6 +61,16 @@ public interface PileStrategy
     */
    default void finishDrag(CardStack origin, CardStack packet, CardStack target,
             MouseEvent event)
+   {
+   }
+
+   /**
+    * Respond to a click on the given Pile.
+    * 
+    * @param pile
+    * @param event
+    */
+   default void handleClick(CardStack pile, MouseEvent event)
    {
    }
 

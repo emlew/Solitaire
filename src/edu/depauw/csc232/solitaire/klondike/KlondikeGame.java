@@ -1,3 +1,13 @@
+////////////////////////////////////////////////////////////////////////////////
+// File:             KlondikeGame.java
+// Course:           CSC 232, Spring 2022
+// Authors:          bhoward
+//
+// Acknowledgments:  None
+//
+// Online sources:   None
+////////////////////////////////////////////////////////////////////////////////
+
 package edu.depauw.csc232.solitaire.klondike;
 
 import edu.depauw.csc232.solitaire.Game;
@@ -10,12 +20,6 @@ import edu.depauw.csc232.solitaire.ui.GameFrame;
  */
 public class KlondikeGame implements Game
 {
-   public static void main(String[] args)
-   {
-      Game game = new KlondikeGame();
-      game.start();
-   }
-
    /**
     * Create and display a GameFrame initialized to play a game of Klondike.
     */
@@ -29,5 +33,11 @@ public class KlondikeGame implements Game
       });
 
       frame.display();
+   }
+
+   public static void main(String[] args)
+   {
+      Game game = new KlondikeGame();
+      game.start();
    }
 }

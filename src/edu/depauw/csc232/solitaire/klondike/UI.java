@@ -1,3 +1,13 @@
+////////////////////////////////////////////////////////////////////////////////
+// File:             UI.java
+// Course:           CSC 232, Spring 2022
+// Authors:          bhoward
+//
+// Acknowledgments:  None
+//
+// Online sources:   None
+////////////////////////////////////////////////////////////////////////////////
+
 package edu.depauw.csc232.solitaire.klondike;
 
 import edu.depauw.csc232.solitaire.ui.Pile;
@@ -11,12 +21,6 @@ import edu.depauw.csc232.solitaire.ui.Table;
  */
 class UI
 {
-   // TODO encapsulate these better?
-   public final Pile waste;
-   public final Pile stock;
-   public final Pile[] tableau;
-   public final Pile[] foundation;
-
    /**
     * Construct the empty piles to be placed on the game table, and assign their
     * interaction strategies.
@@ -87,4 +91,13 @@ class UI
          table.addItem(foundation[i]);
       }
    }
+
+   // TODO encapsulate these better?
+   public final Pile waste;
+
+   public final Pile stock;
+
+   public final Pile[] tableau;
+
+   public final Pile[] foundation;
 }

@@ -1,3 +1,13 @@
+////////////////////////////////////////////////////////////////////////////////
+// File:             package-info.java
+// Course:           CSC 232, Spring 2022
+// Authors:          bhoward
+//
+// Acknowledgments:  None
+//
+// Online sources:   None
+////////////////////////////////////////////////////////////////////////////////
+
 /**
  * This package contains the game-specific classes for single-card-draw Klondike
  * solitaire.

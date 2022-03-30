@@ -1,3 +1,13 @@
+////////////////////////////////////////////////////////////////////////////////
+// File:             Pile.java
+// Course:           CSC 232, Spring 2022
+// Authors:          bhoward
+//
+// Acknowledgments:  None
+//
+// Online sources:   None
+////////////////////////////////////////////////////////////////////////////////
+
 package edu.depauw.csc232.solitaire.ui;
 
 import java.awt.Image;
@@ -18,63 +28,19 @@ public class Pile extends CardStack
    }
 
    /**
-    * Construct a horizontal PacketTableItem for the given strategy.
-    * 
-    * @param strategy
-    */
-   public static Pile makeHorizontal(PileStrategy strategy)
-   {
-      return new Pile(strategy, 1, 0);
-   }
-
-   /**
-    * Construct a vertical PacketTableItem for the given strategy.
-    * 
-    * @param strategy
-    */
-   public static Pile makeVertical(PileStrategy strategy)
-   {
-      return new Pile(strategy, 0, 1);
-   }
-
-   /**
-    * Construct a squared-up PacketTableItem for the given strategy.
-    * 
-    * @param strategy
-    */
-   public static Pile makeSquared(PileStrategy strategy)
-   {
-      return new Pile(strategy, 0, 0);
-   }
-
-   /**
-    * Return whether this pile is under the location of the given mouse event.
+    * Return whether the given pile may be dragged. This could be used to change
+    * the mouse appearance, for example. To avoid lag, this should do minimal
+    * computation and return quickly.
     * 
     * @param event
-    *           the mouse event
-    * @return true if the event applies to this pile
+    *           the mouseDragged event being checked
+    * @return true if this pile will respond to being dragged
     */
-   public boolean underMouse(MouseEvent event)
+   public boolean canDrag(MouseEvent event)
    {
-      // check whether the event is over this pile's image
-      Image image = getCachedImage();
-      int x = getX();
-      int y = getY();
-      int ex = event.getX();
-      int ey = event.getY();
-      return image != null && x <= ex && ex < x + image.getWidth(null)
-         && y <= ey && ey < y + image.getHeight(null);
-   }
-
-   /**
-    * Respond to a mouse click on this pile.
-    * 
-    * @param event
-    *           the mouseClicked event
-    */
-   public void handleClick(MouseEvent event)
-   {
-      strategy.handleClick(this, event);
+      // true if there is at least one card to be dragged, and the strategy says
+      // OK
+      return !cards.isEmpty() && strategy.checkCanDrag(this);
    }
 
    /**
@@ -93,19 +59,35 @@ public class Pile extends CardStack
    }
 
    /**
-    * Return whether the given pile may be dragged. This could be used to change
-    * the mouse appearance, for example. To avoid lag, this should do minimal
-    * computation and return quickly.
+    * Perform any necessary post-drag cleanup.
+    */
+   public void finishDrag(CardStack packet, CardStack target, MouseEvent event)
+   {
+      strategy.finishDrag(this, packet, target, event);
+   }
+
+   /**
+    * Respond to a mouse click on this pile.
     * 
     * @param event
-    *           the mouseDragged event being checked
-    * @return true if this pile will respond to being dragged
+    *           the mouseClicked event
     */
-   public boolean canDrag(MouseEvent event)
+   public void handleClick(MouseEvent event)
    {
-      // true if there is at least one card to be dragged, and the strategy says
-      // OK
-      return !cards.isEmpty() && strategy.checkCanDrag(this);
+      strategy.handleClick(this, event);
+   }
+
+   private int identifyCard(MouseEvent event)
+   {
+      // Determine the index of the selected card
+      int dx = event.getX() - getX();
+      int dy = event.getY() - getY();
+
+      int top = cards.size() - 1;
+      int xSelect = (xOFFSET == 0) ? top : Math.min(dx / xOFFSET, top);
+      int ySelect = (yOFFSET == 0) ? top : Math.min(dy / yOFFSET, top);
+
+      return Math.min(xSelect, ySelect);
    }
 
    /**
@@ -143,25 +125,53 @@ public class Pile extends CardStack
    }
 
    /**
-    * Perform any necessary post-drag cleanup.
+    * Return whether this pile is under the location of the given mouse event.
+    * 
+    * @param event
+    *           the mouse event
+    * @return true if the event applies to this pile
     */
-   public void finishDrag(CardStack packet, CardStack target, MouseEvent event)
+   public boolean underMouse(MouseEvent event)
    {
-      strategy.finishDrag(this, packet, target, event);
+      // check whether the event is over this pile's image
+      Image image = getCachedImage();
+      int x = getX();
+      int y = getY();
+      int ex = event.getX();
+      int ey = event.getY();
+      return image != null && x <= ex && ex < x + image.getWidth(null)
+         && y <= ey && ey < y + image.getHeight(null);
    }
 
-   private int identifyCard(MouseEvent event)
+   /**
+    * Construct a horizontal PacketTableItem for the given strategy.
+    * 
+    * @param strategy
+    */
+   public static Pile makeHorizontal(PileStrategy strategy)
    {
-      // Determine the index of the selected card
-      int dx = event.getX() - getX();
-      int dy = event.getY() - getY();
-
-      int top = cards.size() - 1;
-      int xSelect = (xOFFSET == 0) ? top : Math.min(dx / xOFFSET, top);
-      int ySelect = (yOFFSET == 0) ? top : Math.min(dy / yOFFSET, top);
-
-      return Math.min(xSelect, ySelect);
+      return new Pile(strategy, 1, 0);
    }
 
-   private PileStrategy strategy;
+   /**
+    * Construct a squared-up PacketTableItem for the given strategy.
+    * 
+    * @param strategy
+    */
+   public static Pile makeSquared(PileStrategy strategy)
+   {
+      return new Pile(strategy, 0, 0);
+   }
+
+   /**
+    * Construct a vertical PacketTableItem for the given strategy.
+    * 
+    * @param strategy
+    */
+   public static Pile makeVertical(PileStrategy strategy)
+   {
+      return new Pile(strategy, 0, 1);
+   }
+
+   private final PileStrategy strategy;
 }

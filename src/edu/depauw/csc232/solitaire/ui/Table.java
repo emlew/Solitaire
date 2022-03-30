@@ -1,3 +1,13 @@
+////////////////////////////////////////////////////////////////////////////////
+// File:             Table.java
+// Course:           CSC 232, Spring 2022
+// Authors:          bhoward
+//
+// Acknowledgments:  None
+//
+// Online sources:   None
+////////////////////////////////////////////////////////////////////////////////
+
 package edu.depauw.csc232.solitaire.ui;
 
 import java.awt.Color;
@@ -44,17 +54,6 @@ public class Table extends JPanel
       piles.add(pile);
    }
 
-   /**
-    * Removes the given Pile from the table.
-    * 
-    * @param pile
-    * @return true if the pile was present
-    */
-   public boolean removeItem(CardStack pile)
-   {
-      return piles.remove(pile);
-   }
-
    @Override
    public void paintComponent(Graphics g)
    {
@@ -97,8 +96,19 @@ public class Table extends JPanel
       }
    }
 
-   private CardImages images;
-   private List<Pile> piles; // maintain this in z-order (back to front)
+   /**
+    * Removes the given Pile from the table.
+    * 
+    * @param pile
+    * @return true if the pile was present
+    */
+   public boolean removeItem(CardStack pile)
+   {
+      return piles.remove(pile);
+   }
+
+   private final CardImages images;
+   private final List<Pile> piles; // maintain this in z-order (back to front)
    private CardStack highlightPile;
    private Packet packet;
 
@@ -120,6 +130,18 @@ public class Table extends JPanel
     */
    final class TableListener extends MouseInputAdapter
    {
+      private Pile findPile(MouseEvent e)
+      {
+         for (int i = piles.size() - 1; i >= 0; i--) {
+            Pile pile = piles.get(i);
+            if (pile.underMouse(e)) {
+               return pile;
+            }
+         }
+
+         return null;
+      }
+
       @Override
       public void mouseClicked(MouseEvent e)
       {
@@ -128,32 +150,6 @@ public class Table extends JPanel
             pile.handleClick(e);
             repaint();
          }
-      }
-
-      @Override
-      public void mousePressed(MouseEvent e)
-      {
-         point = e.getPoint();
-         dragStarting = true;
-      }
-
-      @Override
-      public void mouseReleased(MouseEvent e)
-      {
-         if (packet != null) {
-            Pile pile = findPile(e);
-            if (pile != null && pile.canDrop(packet, e)) {
-               packet.endDrag(pile, e);
-            }
-            else {
-               packet.cancelDrag(e);
-            }
-            packet = null;
-            highlightPile = null;
-
-            repaint();
-         }
-         dragStarting = false;
       }
 
       @Override
@@ -188,6 +184,18 @@ public class Table extends JPanel
       }
 
       @Override
+      public void mouseExited(MouseEvent e)
+      {
+         if (packet != null) {
+            packet.cancelDrag(e);
+            packet = null;
+            highlightPile = null;
+
+            repaint();
+         }
+      }
+
+      @Override
       public void mouseMoved(MouseEvent e)
       {
          Pile pile = findPile(e);
@@ -200,27 +208,29 @@ public class Table extends JPanel
       }
 
       @Override
-      public void mouseExited(MouseEvent e)
+      public void mousePressed(MouseEvent e)
+      {
+         point = e.getPoint();
+         dragStarting = true;
+      }
+
+      @Override
+      public void mouseReleased(MouseEvent e)
       {
          if (packet != null) {
-            packet.cancelDrag(e);
+            Pile pile = findPile(e);
+            if (pile != null && pile.canDrop(packet, e)) {
+               packet.endDrag(pile, e);
+            }
+            else {
+               packet.cancelDrag(e);
+            }
             packet = null;
             highlightPile = null;
 
             repaint();
          }
-      }
-
-      private Pile findPile(MouseEvent e)
-      {
-         for (int i = piles.size() - 1; i >= 0; i--) {
-            Pile pile = piles.get(i);
-            if (pile.underMouse(e)) {
-               return pile;
-            }
-         }
-
-         return null;
+         dragStarting = false;
       }
 
       private Point point;

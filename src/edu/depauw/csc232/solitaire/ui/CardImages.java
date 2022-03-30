@@ -1,3 +1,13 @@
+////////////////////////////////////////////////////////////////////////////////
+// File:             CardImages.java
+// Course:           CSC 232, Spring 2022
+// Authors:          bhoward
+//
+// Acknowledgments:  None
+//
+// Online sources:   None
+////////////////////////////////////////////////////////////////////////////////
+
 package edu.depauw.csc232.solitaire.ui;
 
 import java.awt.Image;
@@ -84,5 +94,5 @@ public class CardImages
       }
    }
 
-   private Map<String, Image> images;
+   private final Map<String, Image> images;
 }

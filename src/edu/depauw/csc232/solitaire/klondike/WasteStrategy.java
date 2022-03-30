@@ -1,3 +1,13 @@
+////////////////////////////////////////////////////////////////////////////////
+// File:             WasteStrategy.java
+// Course:           CSC 232, Spring 2022
+// Authors:          bhoward
+//
+// Acknowledgments:  None
+//
+// Online sources:   None
+////////////////////////////////////////////////////////////////////////////////
+
 package edu.depauw.csc232.solitaire.klondike;
 
 import java.awt.event.MouseEvent;

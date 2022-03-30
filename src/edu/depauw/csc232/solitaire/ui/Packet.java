@@ -1,3 +1,13 @@
+////////////////////////////////////////////////////////////////////////////////
+// File:             Packet.java
+// Course:           CSC 232, Spring 2022
+// Authors:          bhoward
+//
+// Acknowledgments:  None
+//
+// Online sources:   None
+////////////////////////////////////////////////////////////////////////////////
+
 package edu.depauw.csc232.solitaire.ui;
 
 import java.awt.event.MouseEvent;
@@ -18,6 +28,18 @@ public class Packet extends CardStack
    }
 
    /**
+    * Notify this packet that its current drag motion has been cancelled. The
+    * cards are returned to the origin pile.
+    * 
+    * @param event
+    *           the mouse event that cancelled the drag
+    */
+   public void cancelDrag(MouseEvent event)
+   {
+      origin.addAll(cards);
+   }
+
+   /**
     * Notify this packet that it has been dropped on the given pile. The cards
     * are added to the target pile, and the origin is notified of the drag
     * completion.
@@ -34,18 +56,6 @@ public class Packet extends CardStack
    }
 
    /**
-    * Notify this packet that its current drag motion has been cancelled. The
-    * cards are returned to the origin pile.
-    * 
-    * @param event
-    *           the mouse event that cancelled the drag
-    */
-   public void cancelDrag(MouseEvent event)
-   {
-      origin.addAll(cards);
-   }
-
-   /**
     * @return the pile from which this packet was dragged
     */
    public CardStack getOrigin()
@@ -53,5 +63,5 @@ public class Packet extends CardStack
       return origin;
    }
 
-   private Pile origin;
+   private final Pile origin;
 }

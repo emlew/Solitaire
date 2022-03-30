@@ -1,3 +1,13 @@
+////////////////////////////////////////////////////////////////////////////////
+// File:             TableauStrategy.java
+// Course:           CSC 232, Spring 2022
+// Authors:          bhoward
+//
+// Acknowledgments:  None
+//
+// Online sources:   None
+////////////////////////////////////////////////////////////////////////////////
+
 package edu.depauw.csc232.solitaire.klondike;
 
 import java.awt.event.MouseEvent;
@@ -52,12 +62,6 @@ class TableauStrategy implements PileStrategy
    }
 
    @Override
-   public void handleClick(CardStack tableau, MouseEvent event)
-   {
-      // TODO search for a place to move the top card
-   }
-
-   @Override
    public void finishDrag(CardStack tableau, CardStack packet, CardStack target,
             MouseEvent event)
    {
@@ -68,5 +72,11 @@ class TableauStrategy implements PileStrategy
          top.flip();
          tableau.add(top);
       }
+   }
+
+   @Override
+   public void handleClick(CardStack tableau, MouseEvent event)
+   {
+      // TODO search for a place to move the top card
    }
 }
