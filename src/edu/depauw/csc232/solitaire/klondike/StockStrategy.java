@@ -29,9 +29,10 @@ class StockStrategy implements PileStrategy
 {
    /**
     * Construct the StockStrategy with a reference to the waste pile out of the
-    * given UI.
+    * given {@link edu.depauw.csc232.solitaire.klondike.KlondikeGame
+    * KlondikeGame}.
     * 
-    * @param ui
+    * @param game
     */
    public StockStrategy(KlondikeGame game)
    {
