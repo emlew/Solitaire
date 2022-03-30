@@ -10,6 +10,9 @@
 
 package edu.depauw.csc232.solitaire.klondike;
 
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
+
 import edu.depauw.csc232.solitaire.Game;
 import edu.depauw.csc232.solitaire.ui.GameFrame;
 import edu.depauw.csc232.solitaire.ui.Pile;
@@ -46,6 +49,20 @@ public class KlondikeGame implements Game
       for (int i = 0; i < NUMBER_OF_FOUNDATIONS; i++) {
          foundations[i] = Pile.makeSquared(foundationStrategy);
       }
+   }
+
+   public void checkWin()
+   {
+      for (Pile foundation : foundations) {
+         if (foundation.size() != 13) {
+            return;
+         }
+      }
+
+      // All foundations have 13 cards -- we win!
+      SwingUtilities.invokeLater(() -> {
+         JOptionPane.showMessageDialog(frame, "You win!");
+      });
    }
 
    /**
@@ -99,7 +116,7 @@ public class KlondikeGame implements Game
     */
    public void start()
    {
-      GameFrame frame = new GameFrame("Klondike", 700, 600, table -> {
+      frame = new GameFrame("Klondike", 700, 600, table -> {
          dealGame();
          layoutUI(table);
       });
@@ -121,6 +138,8 @@ public class KlondikeGame implements Game
    public final Pile[] tableaus;
 
    public final Pile[] foundations;
+
+   private GameFrame frame;
 
    private static final int NUMBER_OF_FOUNDATIONS = 4;
 

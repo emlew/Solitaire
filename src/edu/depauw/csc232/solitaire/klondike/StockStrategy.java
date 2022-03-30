@@ -36,7 +36,7 @@ class StockStrategy implements PileStrategy
     */
    public StockStrategy(KlondikeGame game)
    {
-      this.waste = game.waste;
+      this.game = game;
    }
 
    @Override
@@ -56,6 +56,8 @@ class StockStrategy implements PileStrategy
    @Override
    public void handleClick(CardStack stock, MouseEvent event)
    {
+      Pile waste = game.waste;
+
       if (stock.isEmpty()) {
          // If the stock is empty, turn over all of the cards from the waste
          // pile and refresh the stock
@@ -73,5 +75,5 @@ class StockStrategy implements PileStrategy
       }
    }
 
-   private final Pile waste;
+   private final KlondikeGame game;
 }

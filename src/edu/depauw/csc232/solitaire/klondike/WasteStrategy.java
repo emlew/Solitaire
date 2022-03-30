@@ -12,7 +12,10 @@ package edu.depauw.csc232.solitaire.klondike;
 
 import java.awt.event.MouseEvent;
 
+import edu.depauw.csc232.solitaire.model.Card;
+import edu.depauw.csc232.solitaire.model.Rank;
 import edu.depauw.csc232.solitaire.ui.CardStack;
+import edu.depauw.csc232.solitaire.ui.Pile;
 import edu.depauw.csc232.solitaire.ui.PileStrategy;
 
 /**
@@ -26,6 +29,7 @@ class WasteStrategy implements PileStrategy
 {
    public WasteStrategy(KlondikeGame game)
    {
+      this.game = game;
    }
 
    @Override
@@ -50,8 +54,45 @@ class WasteStrategy implements PileStrategy
    }
 
    @Override
+   public void finishDrag(CardStack origin, CardStack packet, CardStack target,
+            MouseEvent event)
+   {
+      // Check for winning the game after playing a card from the waste pile
+      game.checkWin();
+   }
+
+   @Override
    public void handleClick(CardStack waste, MouseEvent event)
    {
-      // TODO search for a place to move the card
+      // Search for a place to move the card
+      if (!waste.isEmpty()) {
+         Card card = waste.getTop();
+
+         for (Pile foundation : game.foundations) {
+            // Check for ace on empty foundation, or next card of same suit if
+            // non-empty
+            if (foundation.isEmpty()) {
+               if (card.getRank() != Rank.Ace) {
+                  continue;
+               }
+            }
+            else {
+               Card top = foundation.getTop();
+
+               if (card.getSuit() != top.getSuit()
+                  || card.getValue() - 1 != top.getValue()) {
+                  continue;
+               }
+            }
+
+            // If we get here, the card from waste may be played on the
+            // foundation
+            foundation.add(waste.deal());
+            game.checkWin();
+            break;
+         }
+      }
    }
+
+   private final KlondikeGame game;
 }
