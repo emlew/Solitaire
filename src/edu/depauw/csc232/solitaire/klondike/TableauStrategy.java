@@ -14,7 +14,7 @@ import edu.depauw.csc232.solitaire.ui.PileStrategy;
  * 
  * @author bhoward
  */
-public class TableauStrategy implements PileStrategy
+class TableauStrategy implements PileStrategy
 {
    public TableauStrategy(UI ui)
    {

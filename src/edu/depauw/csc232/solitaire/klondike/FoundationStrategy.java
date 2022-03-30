@@ -13,7 +13,7 @@ import edu.depauw.csc232.solitaire.ui.PileStrategy;
  * 
  * @author bhoward
  */
-public class FoundationStrategy implements PileStrategy
+class FoundationStrategy implements PileStrategy
 {
    public FoundationStrategy(UI ui)
    {

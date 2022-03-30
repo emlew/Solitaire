@@ -12,7 +12,7 @@ import edu.depauw.csc232.solitaire.ui.PileStrategy;
  * 
  * @author bhoward
  */
-public class WasteStrategy implements PileStrategy
+class WasteStrategy implements PileStrategy
 {
    public WasteStrategy(UI ui)
    {

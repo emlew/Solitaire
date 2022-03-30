@@ -9,12 +9,13 @@ import edu.depauw.csc232.solitaire.ui.Table;
  * 
  * @author bhoward
  */
-public class UI
+class UI
 {
-   public Pile waste;
-   public Pile stock;
-   public Pile[] tableau;
-   public Pile[] foundation;
+   // TODO encapsulate these better?
+   public final Pile waste;
+   public final Pile stock;
+   public final Pile[] tableau;
+   public final Pile[] foundation;
 
    /**
     * Construct the empty piles to be placed on the game table, and assign their

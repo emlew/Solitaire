@@ -15,7 +15,7 @@ import edu.depauw.csc232.solitaire.ui.PileStrategy;
  * 
  * @author bhoward
  */
-public class StockStrategy implements PileStrategy
+class StockStrategy implements PileStrategy
 {
    /**
     * Construct the StockStrategy with a reference to the waste pile out of the
