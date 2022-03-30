@@ -26,7 +26,7 @@ import edu.depauw.csc232.solitaire.ui.PileStrategy;
  */
 class TableauStrategy implements PileStrategy
 {
-   public TableauStrategy(UI ui)
+   public TableauStrategy(KlondikeGame game)
    {
    }
 

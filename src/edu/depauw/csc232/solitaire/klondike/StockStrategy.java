@@ -33,9 +33,9 @@ class StockStrategy implements PileStrategy
     * 
     * @param ui
     */
-   public StockStrategy(UI ui)
+   public StockStrategy(KlondikeGame game)
    {
-      this.waste = ui.waste;
+      this.waste = game.waste;
    }
 
    @Override

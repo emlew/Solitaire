@@ -25,7 +25,7 @@ import edu.depauw.csc232.solitaire.ui.PileStrategy;
  */
 class FoundationStrategy implements PileStrategy
 {
-   public FoundationStrategy(UI ui)
+   public FoundationStrategy(KlondikeGame game)
    {
    }
 
@@ -55,7 +55,6 @@ class FoundationStrategy implements PileStrategy
          Card top = foundation.getTop();
          return (card.getSuit() == top.getSuit())
             && (card.getValue() - 1 == top.getValue());
-         // TODO check for winning the game!
       }
    }
 }

@@ -24,7 +24,7 @@ import edu.depauw.csc232.solitaire.ui.PileStrategy;
  */
 class WasteStrategy implements PileStrategy
 {
-   public WasteStrategy(UI ui)
+   public WasteStrategy(KlondikeGame game)
    {
    }
 
