@@ -38,10 +38,11 @@ public class Main
       quit.addActionListener(event -> {
          frame.dispose();
       });
+      buttons.add(Box.createVerticalGlue());
       buttons.add(quit);
 
       frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-      frame.setSize(300, 200);
+      frame.setSize(200, 100);
       frame.setVisible(true);
    }
 }
