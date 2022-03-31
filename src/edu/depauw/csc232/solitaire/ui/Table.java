@@ -61,7 +61,7 @@ public class Table extends JPanel
 
       // draw each of the piles on the table;
       // the highlighted pile, if present, gets a border
-      for (CardStack pile : piles) {
+      for (Pile pile : piles) {
          Image image = pile.getImage(images);
          int x = pile.getX();
          int y = pile.getY();
@@ -102,14 +102,14 @@ public class Table extends JPanel
     * @param pile
     * @return true if the pile was present
     */
-   public boolean removeItem(CardStack pile)
+   public boolean removeItem(Pile pile)
    {
       return piles.remove(pile);
    }
 
    private final CardImages images;
    private final List<Pile> piles; // maintain this in z-order (back to front)
-   private CardStack highlightPile;
+   private Pile highlightPile;
    private Packet packet;
 
    private static final int HIGHLIGHT_BORDER_WIDTH = 3;

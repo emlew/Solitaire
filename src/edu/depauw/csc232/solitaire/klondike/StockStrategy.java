@@ -11,9 +11,9 @@
 package edu.depauw.csc232.solitaire.klondike;
 
 import java.awt.event.MouseEvent;
+import java.util.List;
 
 import edu.depauw.csc232.solitaire.model.Card;
-import edu.depauw.csc232.solitaire.ui.CardStack;
 import edu.depauw.csc232.solitaire.ui.Pile;
 import edu.depauw.csc232.solitaire.ui.PileStrategy;
 
@@ -40,21 +40,21 @@ class StockStrategy implements PileStrategy
    }
 
    @Override
-   public boolean checkCanDrag(CardStack stock)
+   public boolean checkCanDrag(Pile stock)
    {
       // Not allowed to drag cards off of the stock
       return false;
    }
 
    @Override
-   public boolean checkCanDrop(CardStack stock, CardStack packet)
+   public boolean checkCanDrop(Pile stock, List<Card> packet)
    {
       // Not allowed to drop a packet on the stock
       return false;
    }
 
    @Override
-   public void handleClick(CardStack stock, MouseEvent event)
+   public void handleClick(Pile stock, MouseEvent event)
    {
       Pile waste = game.waste;
 

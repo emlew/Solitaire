@@ -12,6 +12,9 @@ package edu.depauw.csc232.solitaire.ui;
 
 import java.awt.Image;
 import java.awt.event.MouseEvent;
+import java.util.List;
+
+import edu.depauw.csc232.solitaire.model.Card;
 
 /**
  * A Pile is a CardStack located on a game Table. It has a PileStrategy to be
@@ -53,17 +56,17 @@ public class Pile extends CardStack
     *           the mouseMoved event being checked
     * @return true if this pile will accept the drop
     */
-   public boolean canDrop(CardStack packet, MouseEvent event)
+   public boolean canDrop(Packet packet, MouseEvent event)
    {
-      return strategy.checkCanDrop(this, packet);
+      return strategy.checkCanDrop(this, packet.cards);
    }
 
    /**
     * Perform any necessary post-drag cleanup.
     */
-   public void finishDrag(CardStack packet, CardStack target, MouseEvent event)
+   public void finishDrag(Packet packet, Pile target, MouseEvent event)
    {
-      strategy.finishDrag(this, packet, target, event);
+      strategy.finishDrag(this, packet.cards, target);
    }
 
    /**
@@ -109,7 +112,7 @@ public class Pile extends CardStack
       }
 
       // Check that the collection is OK to drag
-      if (!strategy.checkStartDrag(this, packet)) {
+      if (!strategy.checkStartDrag(this, packet.cards)) {
          return null;
       }
 
@@ -122,6 +125,34 @@ public class Pile extends CardStack
       packet.setX(getX() + n * xOFFSET);
       packet.setY(getY() + n * yOFFSET);
       return packet;
+   }
+
+   /**
+    * Programmatically try to drag the given number of cards from the origin to
+    * this Pile.
+    * 
+    * @param origin
+    * @param numCards
+    * @return true if successful
+    */
+   public boolean tryDrag(Pile origin, int numCards)
+   {
+      int n = origin.size();
+      PileStrategy os = origin.strategy;
+
+      if (n >= numCards) {
+         List<Card> cards = origin.cards.subList(n - numCards, n);
+         if (strategy.checkCanDrop(this, cards)
+            && os.checkStartDrag(origin, cards)) {
+            this.addAll(cards);
+            for (int i = 0; i < numCards; i++) {
+               origin.deal();
+            }
+            os.finishDrag(origin, cards, this);
+            return true;
+         }
+      }
+      return false;
    }
 
    /**

@@ -11,6 +11,9 @@
 package edu.depauw.csc232.solitaire.ui;
 
 import java.awt.event.MouseEvent;
+import java.util.List;
+
+import edu.depauw.csc232.solitaire.model.Card;
 
 /**
  * A PileStrategy permits customization of the behavior of a {@link Pile} in
@@ -28,7 +31,7 @@ public interface PileStrategy
     * @param pile
     * @return true if the Pile allows dragging
     */
-   default boolean checkCanDrag(CardStack pile)
+   default boolean checkCanDrag(Pile pile)
    {
       return true;
    }
@@ -42,7 +45,7 @@ public interface PileStrategy
     * @param packet
     * @return true if the Pile will allow the Packet to be dropped
     */
-   default boolean checkCanDrop(CardStack pile, CardStack packet)
+   default boolean checkCanDrop(Pile pile, List<Card> packet)
    {
       return true;
    }
@@ -54,7 +57,7 @@ public interface PileStrategy
     * @param packet
     * @return true if the given Packet may be dragged away from the Pile
     */
-   default boolean checkStartDrag(CardStack pile, CardStack packet)
+   default boolean checkStartDrag(Pile pile, List<Card> packet)
    {
       return true;
    }
@@ -67,10 +70,8 @@ public interface PileStrategy
     * @param origin
     * @param packet
     * @param target
-    * @param event
     */
-   default void finishDrag(CardStack origin, CardStack packet, CardStack target,
-            MouseEvent event)
+   default void finishDrag(Pile origin, List<Card> packet, Pile target)
    {
    }
 
@@ -80,7 +81,7 @@ public interface PileStrategy
     * @param pile
     * @param event
     */
-   default void handleClick(CardStack pile, MouseEvent event)
+   default void handleClick(Pile pile, MouseEvent event)
    {
    }
 

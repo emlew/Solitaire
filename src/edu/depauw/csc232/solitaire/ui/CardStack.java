@@ -92,20 +92,6 @@ public abstract class CardStack
    }
 
    /**
-    * @return true if all of the cards in this stack are face-up
-    */
-   public boolean allFaceUp()
-   {
-      for (Card card : cards) {
-         if (!card.isFaceUp()) {
-            return false;
-         }
-      }
-
-      return true;
-   }
-
-   /**
     * Deal one card off the top of this stack.
     * 
     * @return the card
