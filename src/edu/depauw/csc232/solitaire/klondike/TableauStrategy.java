@@ -71,11 +71,11 @@ class TableauStrategy implements PileStrategy
    public void finishDrag(Pile tableau, List<Card> packet, Pile target)
    {
       // Flip over an exposed top card, if any
-      if (!tableau.isEmpty() && !tableau.getTop()
-                                        .isFaceUp()) {
-         Card top = tableau.deal();
-         top.flip();
-         tableau.add(top);
+      if (!tableau.isEmpty()) {
+         Card top = tableau.getTop();
+         if (!top.isFaceUp()) {
+            tableau.flipTop(); // note that top.flip() won't update the image
+         }
       }
 
       // Check for winning the game after playing a card from this tableau pile
