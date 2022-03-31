@@ -30,7 +30,7 @@ public interface PileStrategy
     * @param pile
     * @return true if the Pile allows dragging
     */
-   default boolean checkCanDrag(Pile pile)
+   default boolean checkCanDrag(CardStack pile)
    {
       return true;
    }
@@ -44,7 +44,7 @@ public interface PileStrategy
     * @param packet
     * @return true if the Pile will allow the Packet to be dropped
     */
-   default boolean checkCanDrop(Pile pile, List<Card> packet)
+   default boolean checkCanDrop(CardStack pile, List<Card> packet)
    {
       return true;
    }
@@ -56,7 +56,7 @@ public interface PileStrategy
     * @param packet
     * @return true if the given Packet may be dragged away from the Pile
     */
-   default boolean checkStartDrag(Pile pile, List<Card> packet)
+   default boolean checkStartDrag(CardStack pile, List<Card> packet)
    {
       return true;
    }
@@ -70,7 +70,7 @@ public interface PileStrategy
     * @param packet
     * @param target
     */
-   default void finishDrag(Pile origin, List<Card> packet, Pile target)
+   default void finishDrag(CardStack origin, List<Card> packet, CardStack target)
    {
    }
 

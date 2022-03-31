@@ -11,6 +11,7 @@
 package edu.depauw.csc232.solitaire.klondike;
 
 import edu.depauw.csc232.solitaire.Game;
+import edu.depauw.csc232.solitaire.ui.CardStack;
 import edu.depauw.csc232.solitaire.ui.GameFrame;
 import edu.depauw.csc232.solitaire.ui.Pile;
 import edu.depauw.csc232.solitaire.ui.PileStrategy;
@@ -50,7 +51,7 @@ public class KlondikeGame implements Game
 
    public void checkWin()
    {
-      for (Pile foundation : foundations) {
+      for (CardStack foundation : foundations) {
          if (foundation.size() != 13) {
             return;
          }

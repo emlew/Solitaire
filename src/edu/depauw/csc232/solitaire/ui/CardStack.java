@@ -243,6 +243,18 @@ public abstract class CardStack
       return cards.size();
    }
 
+   /**
+    * Return the card at the given index, counting from the top of this stack at
+    * index 1.
+    * 
+    * @param index
+    * @return
+    */
+   public Card getFromTop(int index)
+   {
+      return cards.get(cards.size() - index);
+   }
+
    private int x;
    private int y;
 
