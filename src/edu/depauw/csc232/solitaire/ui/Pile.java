@@ -78,7 +78,8 @@ public class Pile extends CardStack
    public void handleClick(MouseEvent event)
    {
       int n = identifyCard(event);
-      strategy.handleClick(this, n);
+      int numCards = (n == -1) ? 0 : (size() - n);
+      strategy.handleClick(this, numCards);
    }
 
    private int identifyCard(MouseEvent event)

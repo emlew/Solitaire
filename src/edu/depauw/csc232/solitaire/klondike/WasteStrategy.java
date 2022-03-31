@@ -59,7 +59,7 @@ class WasteStrategy implements PileStrategy
    }
 
    @Override
-   public void handleClick(Pile waste, int n)
+   public void handleClick(Pile waste, int numCards)
    {
       // Search for a place to move the card; check foundations, then tableaus
       if (!waste.isEmpty()) {

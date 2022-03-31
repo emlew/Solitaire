@@ -75,14 +75,14 @@ public interface PileStrategy
    }
 
    /**
-    * Respond to a click on card n of the given Pile. The bottom card is index
-    * 0, and the top card is index pile.size()-1. If the pile is empty, n will
-    * be -1.
+    * Respond to a click on some number of cards from the top of the given Pile.
+    * If only the top card is selected, numCards will be 1. If the Pile is
+    * empty, numCards will be 0.
     * 
     * @param pile
-    * @param n
+    * @param numCards
     */
-   default void handleClick(Pile pile, int n)
+   default void handleClick(Pile pile, int numCards)
    {
    }
 

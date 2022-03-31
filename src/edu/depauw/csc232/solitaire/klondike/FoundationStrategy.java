@@ -29,13 +29,14 @@ class FoundationStrategy implements PileStrategy
 {
    public FoundationStrategy(KlondikeGame game)
    {
+      this.game = game;
    }
 
    @Override
    public boolean checkCanDrag(Pile foundation)
    {
-      // Cards may not be dragged off the foundation
-      return false;
+      // The top card (if present) may be dragged off the foundation
+      return !foundation.isEmpty();
    }
 
    @Override
@@ -59,4 +60,19 @@ class FoundationStrategy implements PileStrategy
             && (card.getValue() - 1 == top.getValue());
       }
    }
+
+   @Override
+   public void handleClick(Pile foundation, int numCards)
+   {
+      // Allow cards to be moved back to a tableau
+      if (!foundation.isEmpty()) {
+         for (Pile tableau : game.tableaus) {
+            if (tableau.tryDrag(foundation, numCards)) {
+               return;
+            }
+         }
+      }
+   }
+
+   private KlondikeGame game;
 }

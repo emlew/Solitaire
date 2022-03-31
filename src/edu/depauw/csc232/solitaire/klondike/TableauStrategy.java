@@ -83,10 +83,8 @@ class TableauStrategy implements PileStrategy
    }
 
    @Override
-   public void handleClick(Pile tableau, int n)
+   public void handleClick(Pile tableau, int numCards)
    {
-      int numCards = tableau.size() - n;
-
       // Search for a place to move the card; check foundations if only one
       // card, then other tableaus
       if (!tableau.isEmpty()) {

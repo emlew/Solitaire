@@ -53,7 +53,7 @@ class StockStrategy implements PileStrategy
    }
 
    @Override
-   public void handleClick(Pile stock, int n)
+   public void handleClick(Pile stock, int numCards)
    {
       Pile waste = game.waste;
 
