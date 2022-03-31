@@ -50,7 +50,7 @@ public class Main
       buttons.add(quit);
 
       frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-      frame.setSize(200, 100);
+      frame.setSize(200, 200);
       frame.setVisible(true);
    }
 

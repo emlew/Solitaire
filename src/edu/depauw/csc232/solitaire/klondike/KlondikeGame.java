@@ -5,7 +5,7 @@
 //
 // Acknowledgments:  None
 //
-// Online sources:   None
+// Online sources:   https://en.wikipedia.org/wiki/Klondike_(solitaire)
 ////////////////////////////////////////////////////////////////////////////////
 
 package edu.depauw.csc232.solitaire.klondike;
