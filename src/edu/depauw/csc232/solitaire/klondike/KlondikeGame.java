@@ -10,9 +10,6 @@
 
 package edu.depauw.csc232.solitaire.klondike;
 
-import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
-
 import edu.depauw.csc232.solitaire.Game;
 import edu.depauw.csc232.solitaire.ui.GameFrame;
 import edu.depauw.csc232.solitaire.ui.Pile;
@@ -60,9 +57,7 @@ public class KlondikeGame implements Game
       }
 
       // All foundations have 13 cards -- we win!
-      SwingUtilities.invokeLater(() -> {
-         JOptionPane.showMessageDialog(frame, "You win!");
-      });
+      frame.showWin();
    }
 
    /**

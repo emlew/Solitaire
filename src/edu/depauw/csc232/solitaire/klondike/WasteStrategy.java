@@ -10,7 +10,6 @@
 
 package edu.depauw.csc232.solitaire.klondike;
 
-import java.awt.event.MouseEvent;
 import java.util.List;
 
 import edu.depauw.csc232.solitaire.model.Card;
@@ -60,13 +59,19 @@ class WasteStrategy implements PileStrategy
    }
 
    @Override
-   public void handleClick(Pile waste, MouseEvent event)
+   public void handleClick(Pile waste, int n)
    {
-      // Search for a place to move the card
+      // Search for a place to move the card; check foundations, then tableaus
       if (!waste.isEmpty()) {
          for (Pile foundation : game.foundations) {
             if (foundation.tryDrag(waste, 1)) {
-               break;
+               return;
+            }
+         }
+
+         for (Pile tableau : game.tableaus) {
+            if (tableau.tryDrag(waste, 1)) {
+               return;
             }
          }
       }

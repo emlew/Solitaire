@@ -10,7 +10,6 @@
 
 package edu.depauw.csc232.solitaire.klondike;
 
-import java.awt.event.MouseEvent;
 import java.util.List;
 
 import edu.depauw.csc232.solitaire.model.Card;
@@ -54,7 +53,7 @@ class StockStrategy implements PileStrategy
    }
 
    @Override
-   public void handleClick(Pile stock, MouseEvent event)
+   public void handleClick(Pile stock, int n)
    {
       Pile waste = game.waste;
 

@@ -77,7 +77,8 @@ public class Pile extends CardStack
     */
    public void handleClick(MouseEvent event)
    {
-      strategy.handleClick(this, event);
+      int n = identifyCard(event);
+      strategy.handleClick(this, n);
    }
 
    private int identifyCard(MouseEvent event)

@@ -10,7 +10,6 @@
 
 package edu.depauw.csc232.solitaire.ui;
 
-import java.awt.event.MouseEvent;
 import java.util.List;
 
 import edu.depauw.csc232.solitaire.model.Card;
@@ -76,12 +75,14 @@ public interface PileStrategy
    }
 
    /**
-    * Respond to a click on the given Pile.
+    * Respond to a click on card n of the given Pile. The bottom card is index
+    * 0, and the top card is index pile.size()-1. If the pile is empty, n will
+    * be -1.
     * 
     * @param pile
-    * @param event
+    * @param n
     */
-   default void handleClick(Pile pile, MouseEvent event)
+   default void handleClick(Pile pile, int n)
    {
    }
 

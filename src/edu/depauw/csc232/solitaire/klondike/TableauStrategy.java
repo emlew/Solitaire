@@ -10,7 +10,6 @@
 
 package edu.depauw.csc232.solitaire.klondike;
 
-import java.awt.event.MouseEvent;
 import java.util.List;
 
 import edu.depauw.csc232.solitaire.model.Card;
@@ -84,13 +83,24 @@ class TableauStrategy implements PileStrategy
    }
 
    @Override
-   public void handleClick(Pile tableau, MouseEvent event)
+   public void handleClick(Pile tableau, int n)
    {
-      // Search for a place to move the card
+      int numCards = tableau.size() - n;
+
+      // Search for a place to move the card; check foundations if only one
+      // card, then other tableaus
       if (!tableau.isEmpty()) {
-         for (Pile foundation : game.foundations) {
-            if (foundation.tryDrag(tableau, 1)) {
-               break;
+         if (numCards == 1) {
+            for (Pile foundation : game.foundations) {
+               if (foundation.tryDrag(tableau, 1)) {
+                  return;
+               }
+            }
+         }
+
+         for (Pile tableau2 : game.tableaus) {
+            if (tableau2 != tableau && tableau2.tryDrag(tableau, numCards)) {
+               return;
             }
          }
       }

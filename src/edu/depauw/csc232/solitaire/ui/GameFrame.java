@@ -14,6 +14,8 @@ import java.awt.Color;
 import java.util.function.Consumer;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 public class GameFrame extends JFrame
 {
@@ -50,7 +52,20 @@ public class GameFrame extends JFrame
       setVisible(true);
    }
 
+   /**
+    * Display a winning message over this frame.
+    */
+   public void showWin()
+   {
+      // Use invokeLater so that we can finish processing the current event
+      SwingUtilities.invokeLater(() -> {
+         JOptionPane.showMessageDialog(this, "You win!", "Solitaire",
+                  JOptionPane.INFORMATION_MESSAGE);
+      });
+   }
+
    private final Table table;
+
    private final Consumer<Table> layout;
 
    private static final Color DARK_GREEN = new Color(0, 128, 0);
