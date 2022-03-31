@@ -40,14 +40,14 @@ class StockStrategy implements PileStrategy
    }
 
    @Override
-   public boolean checkCanDrag(CardStack stock)
+   public boolean checkCanDrag(Pile stock)
    {
       // Not allowed to drag cards off of the stock
       return false;
    }
 
    @Override
-   public boolean checkCanDrop(CardStack stock, List<Card> packet)
+   public boolean checkCanDrop(Pile stock, List<Card> packet)
    {
       // Not allowed to drop a packet on the stock
       return false;

@@ -13,7 +13,6 @@ package edu.depauw.csc232.solitaire.klondike;
 import java.util.List;
 
 import edu.depauw.csc232.solitaire.model.Card;
-import edu.depauw.csc232.solitaire.ui.CardStack;
 import edu.depauw.csc232.solitaire.ui.Pile;
 import edu.depauw.csc232.solitaire.ui.PileStrategy;
 
@@ -32,28 +31,28 @@ class WasteStrategy implements PileStrategy
    }
 
    @Override
-   public boolean checkCanDrag(CardStack waste)
+   public boolean checkCanDrag(Pile waste)
    {
       // Allow drag if not empty
       return !waste.isEmpty();
    }
 
    @Override
-   public boolean checkCanDrop(CardStack waste, List<Card> packet)
+   public boolean checkCanDrop(Pile waste, List<Card> packet)
    {
       // Drops are not allowed
       return false;
    }
 
    @Override
-   public boolean checkStartDrag(CardStack waste, List<Card> packet)
+   public boolean checkStartDrag(Pile waste, List<Card> packet)
    {
       // Nothing to check -- only one card may be dragged since pile is squared
       return true;
    }
 
    @Override
-   public void finishDrag(CardStack origin, List<Card> packet, CardStack target)
+   public void finishDrag(Pile waste, List<Card> packet, Pile target)
    {
       // Check for winning the game after playing a card from the waste pile
       game.checkWin();

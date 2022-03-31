@@ -64,7 +64,7 @@ public class Pile extends CardStack
    /**
     * Perform any necessary post-drag cleanup.
     */
-   public void finishDrag(Packet packet, CardStack target, MouseEvent event)
+   public void finishDrag(Packet packet, Pile target, MouseEvent event)
    {
       strategy.finishDrag(this, packet.cards, target);
    }

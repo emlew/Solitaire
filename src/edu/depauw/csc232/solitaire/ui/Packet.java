@@ -49,7 +49,7 @@ public class Packet extends CardStack
     * @param event
     *           the mouseReleased event for the drop
     */
-   public void endDrag(CardStack target, MouseEvent event)
+   public void endDrag(Pile target, MouseEvent event)
    {
       target.addAll(cards);
       origin.finishDrag(this, target, event);
@@ -58,7 +58,7 @@ public class Packet extends CardStack
    /**
     * @return the pile from which this packet was dragged
     */
-   public CardStack getOrigin()
+   public Pile getOrigin()
    {
       return origin;
    }

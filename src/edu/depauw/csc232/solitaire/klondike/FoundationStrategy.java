@@ -14,7 +14,6 @@ import java.util.List;
 
 import edu.depauw.csc232.solitaire.model.Card;
 import edu.depauw.csc232.solitaire.model.Rank;
-import edu.depauw.csc232.solitaire.ui.CardStack;
 import edu.depauw.csc232.solitaire.ui.Pile;
 import edu.depauw.csc232.solitaire.ui.PileStrategy;
 
@@ -34,14 +33,14 @@ class FoundationStrategy implements PileStrategy
    }
 
    @Override
-   public boolean checkCanDrag(CardStack foundation)
+   public boolean checkCanDrag(Pile foundation)
    {
       // The top card (if present) may be dragged off the foundation
       return !foundation.isEmpty();
    }
 
    @Override
-   public boolean checkCanDrop(CardStack foundation, List<Card> packet)
+   public boolean checkCanDrop(Pile foundation, List<Card> packet)
    {
       // Only allow single cards
       if (packet.size() > 1) {

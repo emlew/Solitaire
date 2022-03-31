@@ -14,7 +14,6 @@ import java.util.List;
 
 import edu.depauw.csc232.solitaire.model.Card;
 import edu.depauw.csc232.solitaire.model.Rank;
-import edu.depauw.csc232.solitaire.ui.CardStack;
 import edu.depauw.csc232.solitaire.ui.Pile;
 import edu.depauw.csc232.solitaire.ui.PileStrategy;
 
@@ -33,14 +32,14 @@ class TableauStrategy implements PileStrategy
    }
 
    @Override
-   public boolean checkCanDrag(CardStack tableau)
+   public boolean checkCanDrag(Pile tableau)
    {
       // Allow drag if not empty
       return !tableau.isEmpty();
    }
 
    @Override
-   public boolean checkCanDrop(CardStack tableau, List<Card> packet)
+   public boolean checkCanDrop(Pile tableau, List<Card> packet)
    {
       // Bottom card of packet must have opposite color and one-less value of
       // top card in tableau, or bottom card is a King and the tableau is empty
@@ -57,7 +56,7 @@ class TableauStrategy implements PileStrategy
    }
 
    @Override
-   public boolean checkStartDrag(CardStack tableau, List<Card> packet)
+   public boolean checkStartDrag(Pile tableau, List<Card> packet)
    {
       // Check that all of the selected cards are face-up
       for (Card card : packet) {
@@ -69,7 +68,7 @@ class TableauStrategy implements PileStrategy
    }
 
    @Override
-   public void finishDrag(CardStack tableau, List<Card> packet, CardStack target)
+   public void finishDrag(Pile tableau, List<Card> packet, Pile target)
    {
       // Flip over an exposed top card, if any
       if (!tableau.isEmpty()) {
