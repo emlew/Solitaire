@@ -126,7 +126,7 @@ public class KlondikeGame implements Game
       game.start();
    }
 
-   // TODO encapsulate these better?
+   // No point in encapsulating these with getters...
    public final Pile waste;
 
    public final Pile stock;
