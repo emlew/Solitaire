@@ -1,4 +1,3 @@
-////////////////////////////////////////////////////////////////////////////////
 // File:             Table.java
 // Course:           CSC 232, Spring 2022
 // Authors:          bhoward
@@ -172,7 +171,8 @@ public class Table extends JPanel
             point = point2;
 
             Pile pile = findPile(e);
-            if (pile != null && pile.canDrop(packet, e)) {
+            if (pile != null && pile != packet.getOrigin()
+               && pile.canDrop(packet, e)) {
                highlightPile = pile;
             }
             else {
@@ -219,7 +219,12 @@ public class Table extends JPanel
       {
          if (packet != null) {
             Pile pile = findPile(e);
-            if (pile != null && pile.canDrop(packet, e)) {
+            if (pile != null && pile == packet.getOrigin()) {
+               // Treat as a click
+               packet.cancelDrag(e);
+               pile.handleClick(e);
+            }
+            else if (pile != null && pile.canDrop(packet, e)) {
                packet.endDrag(pile, e);
             }
             else {
