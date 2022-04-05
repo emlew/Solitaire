@@ -17,6 +17,14 @@ import java.util.List;
 import edu.depauw.csc232.solitaire.model.Card;
 import edu.depauw.csc232.solitaire.model.Suit;
 
+/**
+ * A <code>CardMover</code> is an object that is allowed to move cards from one
+ * Pile to another. It is the only legal way to do so from outside the ui
+ * package, because it is also responsible for keeping track of moves so that
+ * they may be undone/redone.
+ * 
+ * @author bhoward
+ */
 public class CardMover
 {
    // package-protected constructor -- should only be created by Table
@@ -98,6 +106,9 @@ public class CardMover
       flipMove(1, pile, pile);
    }
 
+   /**
+    * @return true if no moves have been recorded by this CardMover
+    */
    public boolean isEmpty()
    {
       return moves.isEmpty();
@@ -118,6 +129,10 @@ public class CardMover
       moves.add(new PlainMove(numCards, source, target));
    }
 
+   /**
+    * Replay the moves recorded in this object. This should only be called after
+    * an undo.
+    */
    public void redo()
    {
       for (Move move : moves) {
@@ -137,6 +152,9 @@ public class CardMover
       pile.shuffle();
    }
 
+   /**
+    * Reverse the effect of the moves recorded in this object.
+    */
    public void undo()
    {
       for (int i = moves.size() - 1; i >= 0; i--) {

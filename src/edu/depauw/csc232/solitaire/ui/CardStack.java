@@ -24,7 +24,11 @@ import edu.depauw.csc232.solitaire.model.Suit;
 /**
  * A CardStack is an object that displays a collection of cards. It keeps track
  * of the position and image to be displayed. It is a common superclass of Pile
- * (stack of cards on a Table) and Packet (stack of cards being dragged).
+ * (stack of cards on a Table) and Packet (stack of cards being dragged). Note
+ * that the methods that modify a CardStack are all package-private, so they may
+ * not be used from outside the ui package. A
+ * {@link edu.depauw.csc232.solitaire.ui.CardMover CardMover} must be used to
+ * make changes to a CardStack.
  * 
  * @author bhoward
  */

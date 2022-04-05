@@ -50,6 +50,9 @@ public class KlondikeGame implements Game
       }
    }
 
+   /**
+    * Check for the winning condition: all foundations piles are full.
+    */
    public void checkWin()
    {
       for (CardStack foundation : foundations) {
@@ -63,7 +66,10 @@ public class KlondikeGame implements Game
    }
 
    /**
-    * Deal a deck of cards into the correct initial piles.
+    * Deal a deck of cards into the correct initial piles. All card moves need
+    * to be performed through a CardMover object.
+    * 
+    * @param mover
     */
    public void dealGame(CardMover mover)
    {
@@ -119,6 +125,11 @@ public class KlondikeGame implements Game
       frame.display();
    }
 
+   /**
+    * Main method for testing the Klondike game by itself.
+    * 
+    * @param args
+    */
    public static void main(String[] args)
    {
       Game game = new KlondikeGame();

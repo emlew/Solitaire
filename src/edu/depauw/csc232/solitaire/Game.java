@@ -24,6 +24,12 @@ import edu.depauw.csc232.solitaire.ui.CardMover;
  */
 public interface Game
 {
+   /**
+    * Use the given {@link edu.depauw.csc232.solitaire.ui.CardMover CardMover}
+    * to deal the initial cards for this game.
+    * 
+    * @param mover
+    */
    void dealGame(CardMover mover);
 
    /**

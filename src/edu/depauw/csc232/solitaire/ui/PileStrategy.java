@@ -64,7 +64,8 @@ public interface PileStrategy
    /**
     * Perform clean-up on the origin and target Piles after a drag is completed.
     * The cards will have already been added to the target by the time this is
-    * called.
+    * called. The provided CardMover is available if other cards need to be
+    * moved as a result (for example, because a stack has been cleared).
     * 
     * @param origin
     * @param target
@@ -77,7 +78,8 @@ public interface PileStrategy
    /**
     * Respond to a click on some number of cards from the top of the given Pile.
     * If only the top card is selected, numCards will be 1. If the Pile is
-    * empty, numCards will be 0.
+    * empty, numCards will be 0. The CardMover is available to perform card
+    * moves.
     * 
     * @param pile
     * @param numCards

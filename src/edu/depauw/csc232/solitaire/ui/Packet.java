@@ -57,6 +57,8 @@ public class Packet extends CardStack
     * 
     * @param target
     *           the target of the drop
+    * @param mover
+    *           the CardMover to use to move the cards
     * @param event
     *           the mouseReleased event for the drop
     */

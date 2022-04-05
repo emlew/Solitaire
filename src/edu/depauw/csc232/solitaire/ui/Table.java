@@ -38,7 +38,8 @@ import edu.depauw.csc232.solitaire.Game;
 public class Table extends JPanel
 {
    /**
-    * Construct an empty table, and initialize the mouse listeners.
+    * Construct an empty table, and initialize the mouse listeners and key
+    * bindings.
     */
    public Table(CardImages images)
    {
@@ -52,6 +53,7 @@ public class Table extends JPanel
       addMouseListener(tableListener);
       addMouseMotionListener(tableListener);
 
+      // Install key bindings so that left/right arrow perform undo/redo
       getInputMap().put(KeyStroke.getKeyStroke("LEFT"), "UNDO");
       getInputMap().put(KeyStroke.getKeyStroke("RIGHT"), "REDO");
       getActionMap().put("UNDO", new AbstractAction()
@@ -95,6 +97,12 @@ public class Table extends JPanel
       mover = null;
    }
 
+   /**
+    * Request that the Game deal out its initial set of cards with a provided
+    * CardMover.
+    * 
+    * @param game
+    */
    public void dealGame(Game game)
    {
       CardMover mover = getCardMover();
@@ -102,6 +110,11 @@ public class Table extends JPanel
       initialCommit();
    }
 
+   /**
+    * Get the current CardMover; creating it if it doesn't already exist.
+    * 
+    * @return the current CardMover
+    */
    private CardMover getCardMover()
    {
       if (mover == null) {
@@ -165,6 +178,9 @@ public class Table extends JPanel
       }
    }
 
+   /**
+    * Redo the most recently undone move, if any.
+    */
    private void redo()
    {
       if (!redoItems.isEmpty()) {
@@ -187,6 +203,9 @@ public class Table extends JPanel
       return piles.remove(pile);
    }
 
+   /**
+    * Undo the most recent move, if any.
+    */
    private void undo()
    {
       if (!undoItems.isEmpty()) {

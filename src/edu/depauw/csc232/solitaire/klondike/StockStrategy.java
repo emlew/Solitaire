@@ -25,13 +25,6 @@ import edu.depauw.csc232.solitaire.ui.PileStrategy;
  */
 class StockStrategy implements PileStrategy
 {
-   /**
-    * Construct the StockStrategy with a reference to the waste pile out of the
-    * given {@link edu.depauw.csc232.solitaire.klondike.KlondikeGame
-    * KlondikeGame}.
-    * 
-    * @param game
-    */
    public StockStrategy(KlondikeGame game)
    {
       this.game = game;

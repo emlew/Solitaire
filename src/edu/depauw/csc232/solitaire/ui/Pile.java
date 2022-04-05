@@ -73,6 +73,9 @@ public class Pile extends CardStack
    /**
     * Respond to a mouse click on this pile.
     * 
+    * @param mover
+    *           the CardMover that is allowed to move cards between Piles for
+    *           this click
     * @param event
     *           the mouseClicked event
     */
@@ -128,10 +131,11 @@ public class Pile extends CardStack
 
    /**
     * Programmatically try to drag the given number of cards from the origin to
-    * this Pile.
+    * this Pile. Use the given CardMover to move the cards.
     * 
     * @param origin
     * @param numCards
+    * @param mover
     * @return true if successful
     */
    public boolean tryDrag(Pile origin, int numCards, CardMover mover)
