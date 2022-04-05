@@ -10,6 +10,8 @@
 
 package edu.depauw.csc232.solitaire;
 
+import edu.depauw.csc232.solitaire.ui.CardMover;
+
 /**
  * An implementation of this interface provides a starting point for playing a
  * particular variation of solitaire. The intention is that each variation is
@@ -22,6 +24,8 @@ package edu.depauw.csc232.solitaire;
  */
 public interface Game
 {
+   void dealGame(CardMover mover);
+
    /**
     * Initialize a new game and show its
     * {@link edu.depauw.csc232.solitaire.ui.GameFrame GameFrame}.

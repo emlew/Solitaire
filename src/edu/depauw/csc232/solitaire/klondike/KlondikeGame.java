@@ -11,6 +11,7 @@
 package edu.depauw.csc232.solitaire.klondike;
 
 import edu.depauw.csc232.solitaire.Game;
+import edu.depauw.csc232.solitaire.ui.CardMover;
 import edu.depauw.csc232.solitaire.ui.CardStack;
 import edu.depauw.csc232.solitaire.ui.GameFrame;
 import edu.depauw.csc232.solitaire.ui.Pile;
@@ -64,18 +65,16 @@ public class KlondikeGame implements Game
    /**
     * Deal a deck of cards into the correct initial piles.
     */
-   private void dealGame()
+   public void dealGame(CardMover mover)
    {
-      stock.addDeck();
-      stock.shuffle();
+      mover.addDeck(stock);
+      mover.shuffle(stock);
 
       for (int i = 0; i < NUMBER_OF_TABLEAUS; i++) {
-         for (int j = i; j < NUMBER_OF_TABLEAUS; j++) {
-            tableaus[j].add(stock.deal());
-         }
+         mover.move(i + 1, stock, tableaus[i]);
 
          // Flip the top cards in the tableau
-         tableaus[i].flipTop();
+         mover.flipTop(tableaus[i]);
       }
    }
 
@@ -88,22 +87,22 @@ public class KlondikeGame implements Game
    {
       waste.setX(110);
       waste.setY(10);
-      table.addItem(waste);
+      table.addPile(waste);
 
       stock.setX(10);
       stock.setY(10);
-      table.addItem(stock);
+      table.addPile(stock);
 
       for (int i = 0; i < NUMBER_OF_TABLEAUS; i++) {
          tableaus[i].setX(10 + 100 * i);
          tableaus[i].setY(160);
-         table.addItem(tableaus[i]);
+         table.addPile(tableaus[i]);
       }
 
       for (int i = 0; i < NUMBER_OF_FOUNDATIONS; i++) {
          foundations[i].setX(310 + 100 * i);
          foundations[i].setY(10);
-         table.addItem(foundations[i]);
+         table.addPile(foundations[i]);
       }
    }
 
@@ -113,7 +112,7 @@ public class KlondikeGame implements Game
    public void start()
    {
       frame = new GameFrame("Klondike", 700, 600, table -> {
-         dealGame();
+         table.dealGame(this);
          layoutUI(table);
       });
 

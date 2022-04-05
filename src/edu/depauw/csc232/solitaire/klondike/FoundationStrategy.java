@@ -10,10 +10,10 @@
 
 package edu.depauw.csc232.solitaire.klondike;
 
-import java.util.List;
-
 import edu.depauw.csc232.solitaire.model.Card;
 import edu.depauw.csc232.solitaire.model.Rank;
+import edu.depauw.csc232.solitaire.ui.CardMover;
+import edu.depauw.csc232.solitaire.ui.Packet;
 import edu.depauw.csc232.solitaire.ui.Pile;
 import edu.depauw.csc232.solitaire.ui.PileStrategy;
 
@@ -40,14 +40,14 @@ class FoundationStrategy implements PileStrategy
    }
 
    @Override
-   public boolean checkCanDrop(Pile foundation, List<Card> packet)
+   public boolean checkCanDrop(Pile foundation, Packet packet)
    {
       // Only allow single cards
       if (packet.size() > 1) {
          return false;
       }
 
-      Card card = packet.get(packet.size() - 1);
+      Card card = packet.getTop();
 
       // Check for ace on empty foundation, or next card of same suit if
       // non-empty
@@ -62,12 +62,12 @@ class FoundationStrategy implements PileStrategy
    }
 
    @Override
-   public void handleClick(Pile foundation, int numCards)
+   public void handleClick(Pile foundation, int numCards, CardMover mover)
    {
       // Allow cards to be moved back to a tableau
       if (!foundation.isEmpty()) {
          for (Pile tableau : game.tableaus) {
-            if (tableau.tryDrag(foundation, numCards)) {
+            if (tableau.tryDrag(foundation, numCards, mover)) {
                return;
             }
          }

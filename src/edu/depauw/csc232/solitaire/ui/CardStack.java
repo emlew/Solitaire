@@ -49,7 +49,7 @@ public abstract class CardStack
     * 
     * @param card
     */
-   public void add(Card card)
+   void add(Card card)
    {
       cards.add(card);
       invalidateImage();
@@ -60,21 +60,9 @@ public abstract class CardStack
     * 
     * @param other
     */
-   public void addAll(List<Card> other)
+   void addAll(List<Card> other)
    {
       cards.addAll(other);
-      invalidateImage();
-   }
-
-   /**
-    * Add a standard deck of 52 playing cards to this collection. May be called
-    * multiple times to play with multiple decks.
-    */
-   public void addDeck()
-   {
-      for (Suit suit : Suit.values()) {
-         addSuit(suit);
-      }
       invalidateImage();
    }
 
@@ -84,11 +72,12 @@ public abstract class CardStack
     * 
     * @param suit
     */
-   public void addSuit(Suit suit)
+   void addSuit(Suit suit)
    {
       for (Rank rank : Rank.values()) {
          add(new Card(rank, suit));
       }
+      invalidateImage();
    }
 
    /**
@@ -96,31 +85,11 @@ public abstract class CardStack
     * 
     * @return the card
     */
-   public Card deal()
+   Card deal()
    {
       Card card = cards.remove(cards.size() - 1);
       invalidateImage();
       return card;
-   }
-
-   /**
-    * Flip all of the cards in this stack.
-    */
-   public void flipAll()
-   {
-      for (Card card : cards) {
-         card.flip();
-      }
-      invalidateImage();
-   }
-
-   /**
-    * Flip the top card in this stack.
-    */
-   public void flipTop()
-   {
-      getTop().flip();
-      invalidateImage();
    }
 
    /**
@@ -134,6 +103,18 @@ public abstract class CardStack
    protected Image getCachedImage()
    {
       return cachedImage;
+   }
+
+   /**
+    * Return the card at the given index, counting from the top of this stack at
+    * index 1.
+    * 
+    * @param index
+    * @return
+    */
+   public Card getFromTop(int index)
+   {
+      return cards.get(cards.size() - index);
    }
 
    /**
@@ -229,7 +210,7 @@ public abstract class CardStack
    /**
     * Shuffle the cards in this stack.
     */
-   public void shuffle()
+   void shuffle()
    {
       Collections.shuffle(cards);
       invalidateImage();
@@ -241,18 +222,6 @@ public abstract class CardStack
    public int size()
    {
       return cards.size();
-   }
-
-   /**
-    * Return the card at the given index, counting from the top of this stack at
-    * index 1.
-    * 
-    * @param index
-    * @return
-    */
-   public Card getFromTop(int index)
-   {
-      return cards.get(cards.size() - index);
    }
 
    private int x;

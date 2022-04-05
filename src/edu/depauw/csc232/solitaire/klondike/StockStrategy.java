@@ -10,10 +10,8 @@
 
 package edu.depauw.csc232.solitaire.klondike;
 
-import java.util.List;
-
-import edu.depauw.csc232.solitaire.model.Card;
-import edu.depauw.csc232.solitaire.ui.CardStack;
+import edu.depauw.csc232.solitaire.ui.CardMover;
+import edu.depauw.csc232.solitaire.ui.Packet;
 import edu.depauw.csc232.solitaire.ui.Pile;
 import edu.depauw.csc232.solitaire.ui.PileStrategy;
 
@@ -47,31 +45,25 @@ class StockStrategy implements PileStrategy
    }
 
    @Override
-   public boolean checkCanDrop(Pile stock, List<Card> packet)
+   public boolean checkCanDrop(Pile stock, Packet packet)
    {
       // Not allowed to drop a packet on the stock
       return false;
    }
 
    @Override
-   public void handleClick(Pile stock, int numCards)
+   public void handleClick(Pile stock, int numCards, CardMover mover)
    {
-      CardStack waste = game.waste;
+      Pile waste = game.waste;
 
       if (stock.isEmpty()) {
          // If the stock is empty, turn over all of the cards from the waste
          // pile and refresh the stock
-         while (!waste.isEmpty()) {
-            Card card = waste.deal();
-            card.flip();
-            stock.add(card);
-         }
+         mover.flipMove(waste.size(), waste, stock);
       }
       else {
          // If the stock is non-empty, deal one card face-up onto the waste pile
-         Card card = stock.deal();
-         card.flip();
-         waste.add(card);
+         mover.flipMove(1, stock, waste);
       }
    }
 

@@ -17,13 +17,6 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
-/**
- * A <code>GameFrame</code> is the main window for one instance of a Solitaire
- * game. It contains a {@link edu.depauw.csc232.solitaire.ui.Table Table}, which
- * will display various piles of cards and allow manipulating them with a mouse.
- * 
- * @author bhoward
- */
 public class GameFrame extends JFrame
 {
    /**

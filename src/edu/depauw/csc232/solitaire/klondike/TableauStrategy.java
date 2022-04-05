@@ -14,6 +14,8 @@ import java.util.List;
 
 import edu.depauw.csc232.solitaire.model.Card;
 import edu.depauw.csc232.solitaire.model.Rank;
+import edu.depauw.csc232.solitaire.ui.CardMover;
+import edu.depauw.csc232.solitaire.ui.Packet;
 import edu.depauw.csc232.solitaire.ui.Pile;
 import edu.depauw.csc232.solitaire.ui.PileStrategy;
 
@@ -39,27 +41,27 @@ class TableauStrategy implements PileStrategy
    }
 
    @Override
-   public boolean checkCanDrop(Pile tableau, List<Card> packet)
+   public boolean checkCanDrop(Pile tableau, Packet packet)
    {
       // Bottom card of packet must have opposite color and one-less value of
       // top card in tableau, or bottom card is a King and the tableau is empty
       if (tableau.isEmpty()) {
-         Card bottom = packet.get(0);
+         Card bottom = packet.getBottom();
          return bottom.getRank() == Rank.King;
       }
       else {
          Card top = tableau.getTop();
-         Card bottom = packet.get(0);
+         Card bottom = packet.getBottom();
          return top.isFaceUp() && (top.isRed() != bottom.isRed())
             && (top.getValue() - 1 == bottom.getValue());
       }
    }
 
    @Override
-   public boolean checkStartDrag(Pile tableau, List<Card> packet)
+   public boolean checkStartDrag(Pile tableau, List<Card> selected)
    {
       // Check that all of the selected cards are face-up
-      for (Card card : packet) {
+      for (Card card : selected) {
          if (!card.isFaceUp()) {
             return false;
          }
@@ -68,13 +70,13 @@ class TableauStrategy implements PileStrategy
    }
 
    @Override
-   public void finishDrag(Pile tableau, List<Card> packet, Pile target)
+   public void finishDrag(Pile tableau, Pile target, CardMover mover)
    {
       // Flip over an exposed top card, if any
       if (!tableau.isEmpty()) {
          Card top = tableau.getTop();
          if (!top.isFaceUp()) {
-            tableau.flipTop(); // note that top.flip() won't update the image
+            mover.flipTop(tableau);
          }
       }
 
@@ -83,21 +85,22 @@ class TableauStrategy implements PileStrategy
    }
 
    @Override
-   public void handleClick(Pile tableau, int numCards)
+   public void handleClick(Pile tableau, int numCards, CardMover mover)
    {
       // Search for a place to move the card; check foundations if only one
       // card, then other tableaus
       if (!tableau.isEmpty()) {
          if (numCards == 1) {
             for (Pile foundation : game.foundations) {
-               if (foundation.tryDrag(tableau, 1)) {
+               if (foundation.tryDrag(tableau, 1, mover)) {
                   return;
                }
             }
          }
 
          for (Pile tableau2 : game.tableaus) {
-            if (tableau2 != tableau && tableau2.tryDrag(tableau, numCards)) {
+            if (tableau2 != tableau
+               && tableau2.tryDrag(tableau, numCards, mover)) {
                return;
             }
          }

@@ -58,15 +58,16 @@ public class Pile extends CardStack
     */
    public boolean canDrop(Packet packet, MouseEvent event)
    {
-      return strategy.checkCanDrop(this, packet.cards);
+      return strategy.checkCanDrop(this, packet);
    }
 
    /**
     * Perform any necessary post-drag cleanup.
     */
-   public void finishDrag(Packet packet, Pile target, MouseEvent event)
+   public void finishDrag(Packet packet, Pile target, CardMover mover,
+            MouseEvent event)
    {
-      strategy.finishDrag(this, packet.cards, target);
+      strategy.finishDrag(this, target, mover);
    }
 
    /**
@@ -75,11 +76,12 @@ public class Pile extends CardStack
     * @param event
     *           the mouseClicked event
     */
-   public void handleClick(MouseEvent event)
+   public void handleClick(CardMover mover, MouseEvent event)
    {
       int n = identifyCard(event);
       int numCards = (n == -1) ? 0 : (size() - n);
-      strategy.handleClick(this, numCards);
+
+      strategy.handleClick(this, numCards, mover);
    }
 
    private int identifyCard(MouseEvent event)
@@ -107,22 +109,17 @@ public class Pile extends CardStack
    {
       int n = identifyCard(event);
 
-      // Create a new collection with the selected cards
-      Packet packet = new Packet(this, xOFFSET / HOFFSET, yOFFSET / VOFFSET);
-      for (int i = n; i < cards.size(); i++) {
-         packet.add(cards.get(i));
-      }
+      // Get a sublist of the selected cards to see if they may be dragged
+      List<Card> selected = cards.subList(n, cards.size());
 
       // Check that the collection is OK to drag
-      if (!strategy.checkStartDrag(this, packet.cards)) {
+      if (!strategy.checkStartDrag(this, selected)) {
          return null;
       }
 
-      // Remove those cards from our packet
-      for (int i = 0; i < packet.size(); i++) {
-         cards.remove(cards.size() - 1);
-      }
-      invalidateImage();
+      // Create a new collection with the selected cards; remove from this Pile
+      Packet packet = new Packet(this, selected, xOFFSET / HOFFSET,
+               yOFFSET / VOFFSET);
 
       packet.setX(getX() + n * xOFFSET);
       packet.setY(getY() + n * yOFFSET);
@@ -137,23 +134,30 @@ public class Pile extends CardStack
     * @param numCards
     * @return true if successful
     */
-   public boolean tryDrag(Pile origin, int numCards)
+   public boolean tryDrag(Pile origin, int numCards, CardMover mover)
    {
       int n = origin.size();
       PileStrategy os = origin.strategy;
 
       if (n >= numCards) {
          List<Card> cards = origin.cards.subList(n - numCards, n);
-         if (strategy.checkCanDrop(this, cards)
-            && os.checkStartDrag(origin, cards)) {
-            this.addAll(cards);
-            for (int i = 0; i < numCards; i++) {
-               origin.deal();
+
+         if (os.checkStartDrag(origin, cards)) {
+            Packet packet = new Packet(origin, cards, 0, 0);
+
+            if (strategy.checkCanDrop(this, packet)) {
+               origin.addAll(packet.cards);
+               mover.move(numCards, origin, this);
+
+               os.finishDrag(origin, this, mover);
+               return true;
             }
-            os.finishDrag(origin, cards, this);
-            return true;
+            else {
+               origin.addAll(packet.cards);
+            }
          }
       }
+
       return false;
    }
 

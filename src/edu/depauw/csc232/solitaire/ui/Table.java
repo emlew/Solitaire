@@ -1,3 +1,4 @@
+////////////////////////////////////////////////////////////////////////////////
 // File:             Table.java
 // Course:           CSC 232, Spring 2022
 // Authors:          bhoward
@@ -14,13 +15,19 @@ import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
+import javax.swing.AbstractAction;
 import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 import javax.swing.event.MouseInputAdapter;
 import javax.swing.event.MouseInputListener;
+
+import edu.depauw.csc232.solitaire.Game;
 
 /**
  * Manage a collection of Piles for a card game, and route mouse actions (click,
@@ -37,10 +44,32 @@ public class Table extends JPanel
    {
       this.images = images;
       this.piles = new ArrayList<>();
+      this.mover = null;
+      this.undoItems = new Stack<>();
+      this.redoItems = new Stack<>();
 
       MouseInputListener tableListener = new TableListener();
       addMouseListener(tableListener);
       addMouseMotionListener(tableListener);
+
+      getInputMap().put(KeyStroke.getKeyStroke("LEFT"), "UNDO");
+      getInputMap().put(KeyStroke.getKeyStroke("RIGHT"), "REDO");
+      getActionMap().put("UNDO", new AbstractAction()
+      {
+         @Override
+         public void actionPerformed(ActionEvent e)
+         {
+            undo();
+         }
+      });
+      getActionMap().put("REDO", new AbstractAction()
+      {
+         @Override
+         public void actionPerformed(ActionEvent e)
+         {
+            redo();
+         }
+      });
    }
 
    /**
@@ -48,9 +77,50 @@ public class Table extends JPanel
     * 
     * @param pile
     */
-   public void addItem(Pile pile)
+   public void addPile(Pile pile)
    {
       piles.add(pile);
+   }
+
+   /**
+    * Commit the current CardMover, and add its actions as a single move to the
+    * undo/redo history.
+    */
+   private void commit()
+   {
+      if (!mover.isEmpty()) {
+         undoItems.push(mover);
+         redoItems.clear();
+      }
+      mover = null;
+   }
+
+   public void dealGame(Game game)
+   {
+      CardMover mover = getCardMover();
+      game.dealGame(mover);
+      initialCommit();
+   }
+
+   private CardMover getCardMover()
+   {
+      if (mover == null) {
+         mover = new CardMover();
+      }
+      return mover;
+   }
+
+   /**
+    * Commit the current CardMover, but clear out the undo/redo history so that
+    * the effects of the mover will be permanent.
+    * 
+    * @param mover
+    */
+   private void initialCommit()
+   {
+      undoItems.clear();
+      redoItems.clear();
+      this.mover = null;
    }
 
    @Override
@@ -60,7 +130,7 @@ public class Table extends JPanel
 
       // draw each of the piles on the table;
       // the highlighted pile, if present, gets a border
-      for (CardStack pile : piles) {
+      for (Pile pile : piles) {
          Image image = pile.getImage(images);
          int x = pile.getX();
          int y = pile.getY();
@@ -95,6 +165,17 @@ public class Table extends JPanel
       }
    }
 
+   private void redo()
+   {
+      if (!redoItems.isEmpty()) {
+         CardMover mover = redoItems.pop();
+         mover.redo();
+         undoItems.push(mover);
+
+         repaint();
+      }
+   }
+
    /**
     * Removes the given Pile from the table.
     * 
@@ -106,18 +187,39 @@ public class Table extends JPanel
       return piles.remove(pile);
    }
 
+   private void undo()
+   {
+      if (!undoItems.isEmpty()) {
+         CardMover mover = undoItems.pop();
+         mover.undo();
+         redoItems.push(mover);
+
+         repaint();
+      }
+   }
+
+   private Stack<CardMover> undoItems;
+   private Stack<CardMover> redoItems;
+
+   private CardMover mover;
+
    private final CardImages images;
+
    private final List<Pile> piles; // maintain this in z-order (back to front)
    private CardStack highlightPile;
+
    private Packet packet;
 
    private static final int HIGHLIGHT_BORDER_WIDTH = 3;
+
    private static final int SHADOW_WIDTH = 5;
 
    private static final Color DRAG_SHADOW_COLOR = new Color(0, 0, 0, 64);
+
    private static final Color HIGHLIGHT_BORDER_COLOR = new Color(0, 0, 0);
 
    private static final Cursor MAIN_CURSOR = new Cursor(Cursor.DEFAULT_CURSOR);
+
    private static final Cursor DRAG_CURSOR = new Cursor(Cursor.HAND_CURSOR);
 
    /**
@@ -146,7 +248,9 @@ public class Table extends JPanel
       {
          Pile pile = findPile(e);
          if (pile != null) {
-            pile.handleClick(e);
+            CardMover mover = getCardMover();
+            pile.handleClick(mover, e);
+            commit();
             repaint();
          }
       }
@@ -171,6 +275,11 @@ public class Table extends JPanel
             point = point2;
 
             Pile pile = findPile(e);
+            if (pile != null && pile != packet.getOrigin()) {
+               // the mouse has been dragged over another Pile
+               definiteDrag = true;
+            }
+
             if (pile != null && pile != packet.getOrigin()
                && pile.canDrop(packet, e)) {
                highlightPile = pile;
@@ -212,6 +321,7 @@ public class Table extends JPanel
       {
          point = e.getPoint();
          dragStarting = true;
+         definiteDrag = false;
       }
 
       @Override
@@ -219,13 +329,17 @@ public class Table extends JPanel
       {
          if (packet != null) {
             Pile pile = findPile(e);
-            if (pile != null && pile == packet.getOrigin()) {
+            if (pile != null && pile == packet.getOrigin() && !definiteDrag) {
                // Treat as a click
                packet.cancelDrag(e);
-               pile.handleClick(e);
+               CardMover mover = getCardMover();
+               pile.handleClick(mover, e);
+               commit();
             }
             else if (pile != null && pile.canDrop(packet, e)) {
-               packet.endDrag(pile, e);
+               CardMover mover = getCardMover();
+               packet.endDrag(pile, mover, e);
+               commit();
             }
             else {
                packet.cancelDrag(e);
@@ -239,6 +353,9 @@ public class Table extends JPanel
       }
 
       private Point point;
+
       private boolean dragStarting;
+
+      private boolean definiteDrag;
    }
 }
