@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import edu.depauw.csc232.solitaire.model.Card;
 import edu.depauw.csc232.solitaire.model.Rank;
 import edu.depauw.csc232.solitaire.model.Suit;
 

@@ -8,12 +8,16 @@
 // Online sources:   None
 ////////////////////////////////////////////////////////////////////////////////
 
-package edu.depauw.csc232.solitaire.model;
+package edu.depauw.csc232.solitaire.ui;
+
+import edu.depauw.csc232.solitaire.model.Rank;
+import edu.depauw.csc232.solitaire.model.Suit;
 
 /**
  * Represent a card from an ordinary 52-card deck, including a rank, a suit, and
  * whether the card is face-up or face-down. The rank and suit are immutable,
- * but the face-up/face-down status may be changed.
+ * but the face-up/face-down status may be changed (but only within the ui
+ * package).
  * 
  * @author bhoward
  */
@@ -50,7 +54,7 @@ public class Card
    /**
     * Change the state (face-up/face-down) by flipping the card over.
     */
-   public void flip()
+   void flip()
    {
       faceUp = !faceUp;
    }

@@ -14,8 +14,6 @@ import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.util.List;
 
-import edu.depauw.csc232.solitaire.model.Card;
-
 /**
  * A Pile is a CardStack located on a game Table. It has a PileStrategy to be
  * able to respond to mouse clicks and drag/drop events.
@@ -39,7 +37,7 @@ public class Pile extends CardStack
     *           the mouseDragged event being checked
     * @return true if this pile will respond to being dragged
     */
-   public boolean canDrag(MouseEvent event)
+   boolean canDrag(MouseEvent event)
    {
       // true if there is at least one card to be dragged, and the strategy says
       // OK
@@ -56,7 +54,7 @@ public class Pile extends CardStack
     *           the mouseMoved event being checked
     * @return true if this pile will accept the drop
     */
-   public boolean canDrop(Packet packet, MouseEvent event)
+   boolean canDrop(Packet packet, MouseEvent event)
    {
       return strategy.checkCanDrop(this, packet);
    }
@@ -69,7 +67,7 @@ public class Pile extends CardStack
     * @param mover
     * @param event
     */
-   public void finishDrag(Packet packet, Pile target, CardMover mover,
+   void finishDrag(Packet packet, Pile target, CardMover mover,
             MouseEvent event)
    {
       strategy.finishDrag(this, target, mover);
@@ -84,7 +82,7 @@ public class Pile extends CardStack
     * @param event
     *           the mouseClicked event
     */
-   public void handleClick(CardMover mover, MouseEvent event)
+   void handleClick(CardMover mover, MouseEvent event)
    {
       int n = identifyCard(event);
       int numCards = (n == -1) ? 0 : (size() - n);
@@ -113,7 +111,7 @@ public class Pile extends CardStack
     *           the initial mouseDragged event recognized as a drag
     * @return the packet to be dragged; null to abort
     */
-   public Packet startDrag(MouseEvent event)
+   Packet startDrag(MouseEvent event)
    {
       int n = identifyCard(event);
 
@@ -177,7 +175,7 @@ public class Pile extends CardStack
     *           the mouse event
     * @return true if the event applies to this pile
     */
-   public boolean underMouse(MouseEvent event)
+   boolean underMouse(MouseEvent event)
    {
       // check whether the event is over this pile's image
       Image image = getCachedImage();

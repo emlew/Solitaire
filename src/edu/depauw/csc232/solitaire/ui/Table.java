@@ -200,7 +200,7 @@ public class Table extends JPanel
     * @param pile
     * @return true if the pile was present
     */
-   public boolean removeItem(CardStack pile)
+   public boolean removePile(CardStack pile)
    {
       return piles.remove(pile);
    }

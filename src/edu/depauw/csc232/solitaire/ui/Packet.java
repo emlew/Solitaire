@@ -13,8 +13,6 @@ package edu.depauw.csc232.solitaire.ui;
 import java.awt.event.MouseEvent;
 import java.util.List;
 
-import edu.depauw.csc232.solitaire.model.Card;
-
 /**
  * A Packet is a CardStack that contains a collection of cards currently being
  * dragged. The collection will not be empty.
@@ -45,7 +43,7 @@ public class Packet extends CardStack
     * @param event
     *           the mouse event that cancelled the drag
     */
-   public void cancelDrag(MouseEvent event)
+   void cancelDrag(MouseEvent event)
    {
       origin.addAll(cards);
    }
@@ -62,7 +60,7 @@ public class Packet extends CardStack
     * @param event
     *           the mouseReleased event for the drop
     */
-   public void endDrag(Pile target, CardMover mover, MouseEvent event)
+   void endDrag(Pile target, CardMover mover, MouseEvent event)
    {
       // allow the CardMover to do the official move
       origin.addAll(cards);
@@ -74,7 +72,7 @@ public class Packet extends CardStack
    /**
     * @return the pile from which this packet was dragged
     */
-   public Pile getOrigin()
+   Pile getOrigin()
    {
       return origin;
    }

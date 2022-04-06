@@ -19,8 +19,6 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 
-import edu.depauw.csc232.solitaire.model.Card;
-
 /**
  * Manage a set of playing card images loaded from a directory of image files.
  * 

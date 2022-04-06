@@ -10,8 +10,8 @@
 
 package edu.depauw.csc232.solitaire.klondike;
 
-import edu.depauw.csc232.solitaire.model.Card;
 import edu.depauw.csc232.solitaire.model.Rank;
+import edu.depauw.csc232.solitaire.ui.Card;
 import edu.depauw.csc232.solitaire.ui.CardMover;
 import edu.depauw.csc232.solitaire.ui.Packet;
 import edu.depauw.csc232.solitaire.ui.Pile;

@@ -14,7 +14,6 @@ package edu.depauw.csc232.solitaire.ui;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.depauw.csc232.solitaire.model.Card;
 import edu.depauw.csc232.solitaire.model.Suit;
 
 /**
@@ -109,7 +108,7 @@ public class CardMover
    /**
     * @return true if no moves have been recorded by this CardMover
     */
-   public boolean isEmpty()
+   boolean isEmpty()
    {
       return moves.isEmpty();
    }
@@ -133,7 +132,7 @@ public class CardMover
     * Replay the moves recorded in this object. This should only be called after
     * an undo.
     */
-   public void redo()
+   void redo()
    {
       for (Move move : moves) {
          move.redo();
@@ -155,7 +154,7 @@ public class CardMover
    /**
     * Reverse the effect of the moves recorded in this object.
     */
-   public void undo()
+   void undo()
    {
       for (int i = moves.size() - 1; i >= 0; i--) {
          Move move = moves.get(i);

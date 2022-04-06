@@ -12,8 +12,6 @@ package edu.depauw.csc232.solitaire.ui;
 
 import java.util.List;
 
-import edu.depauw.csc232.solitaire.model.Card;
-
 /**
  * A PileStrategy permits customization of the behavior of a {@link Pile} in
  * response to various actions (clicks and drag/drops).
