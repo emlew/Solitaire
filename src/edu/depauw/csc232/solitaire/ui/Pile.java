@@ -63,6 +63,11 @@ public class Pile extends CardStack
 
    /**
     * Perform any necessary post-drag cleanup.
+    * 
+    * @packet
+    * @target
+    * @mover
+    * @event
     */
    public void finishDrag(Packet packet, Pile target, CardMover mover,
             MouseEvent event)
@@ -185,9 +190,10 @@ public class Pile extends CardStack
    }
 
    /**
-    * Construct a horizontal PacketTableItem for the given strategy.
+    * Construct a horizontal Pile for the given strategy.
     * 
     * @param strategy
+    * @return a new horizontal Pile
     */
    public static Pile makeHorizontal(PileStrategy strategy)
    {
@@ -195,9 +201,10 @@ public class Pile extends CardStack
    }
 
    /**
-    * Construct a squared-up PacketTableItem for the given strategy.
+    * Construct a squared-up Pile for the given strategy.
     * 
     * @param strategy
+    * @return a new squared-up Pile
     */
    public static Pile makeSquared(PileStrategy strategy)
    {
@@ -205,9 +212,10 @@ public class Pile extends CardStack
    }
 
    /**
-    * Construct a vertical PacketTableItem for the given strategy.
+    * Construct a vertical Pile for the given strategy.
     * 
     * @param strategy
+    * @return a new vertical Pile
     */
    public static Pile makeVertical(PileStrategy strategy)
    {

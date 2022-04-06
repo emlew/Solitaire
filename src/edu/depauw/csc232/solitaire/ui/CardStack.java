@@ -123,6 +123,8 @@ public abstract class CardStack
 
    /**
     * @return the image to display for this stack
+    * 
+    * @param images
     */
    public Image getImage(CardImages images)
    {

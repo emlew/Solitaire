@@ -40,6 +40,8 @@ public class Table extends JPanel
    /**
     * Construct an empty table, and initialize the mouse listeners and key
     * bindings.
+    * 
+    * @param images
     */
    public Table(CardImages images)
    {
