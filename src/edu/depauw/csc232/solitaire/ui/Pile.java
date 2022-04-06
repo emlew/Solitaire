@@ -64,10 +64,10 @@ public class Pile extends CardStack
    /**
     * Perform any necessary post-drag cleanup.
     * 
-    * @packet
-    * @target
-    * @mover
-    * @event
+    * @param packet
+    * @param target
+    * @param mover
+    * @param event
     */
    public void finishDrag(Packet packet, Pile target, CardMover mover,
             MouseEvent event)
