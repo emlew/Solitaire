@@ -146,7 +146,7 @@ public class Pile extends CardStack
       int n = origin.size();
       PileStrategy os = origin.strategy;
 
-      if (n >= numCards) {
+      if (os.checkCanDrag(origin) && n >= numCards) {
          List<Card> cards = origin.cards.subList(n - numCards, n);
 
          if (os.checkStartDrag(origin, cards)) {
