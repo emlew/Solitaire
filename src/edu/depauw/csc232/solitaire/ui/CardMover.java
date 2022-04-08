@@ -129,6 +129,18 @@ public class CardMover
    }
 
    /**
+    * Convenience method to move cards already in a Packet without having to put
+    * them back in the origin pile.
+    * 
+    * @param packet
+    * @param target
+    */
+   void move(Packet packet, Pile target)
+   {
+      move(packet.size(), packet.getOrigin(), target);
+   }
+
+   /**
     * Replay the moves recorded in this object. This should only be called after
     * an undo.
     */

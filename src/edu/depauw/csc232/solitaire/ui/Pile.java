@@ -153,9 +153,7 @@ public class Pile extends CardStack
             Packet packet = new Packet(origin, cards, 0, 0);
 
             if (strategy.checkCanDrop(this, packet)) {
-               origin.addAll(packet.cards);
-               mover.move(numCards, origin, this);
-
+               mover.move(packet, this);
                os.finishDrag(origin, this, mover);
                return true;
             }
