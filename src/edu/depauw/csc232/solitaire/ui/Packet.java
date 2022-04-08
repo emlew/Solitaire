@@ -62,10 +62,9 @@ public class Packet extends CardStack
     */
    void endDrag(Pile target, CardMover mover, MouseEvent event)
    {
-      // allow the CardMover to do the official move
+      // allow the CardMover to complete the move
       mover.move(this, target);
-
-      origin.finishDrag(this, target, mover, event);
+      origin.finishDrag(target, mover, event);
    }
 
    /**

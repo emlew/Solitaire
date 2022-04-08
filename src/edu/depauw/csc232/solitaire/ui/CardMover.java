@@ -137,7 +137,10 @@ public class CardMover
     */
    void move(Packet packet, Pile target)
    {
-      move(packet.size(), packet.getOrigin(), target);
+      for (int i = packet.size(); i > 0; i--) {
+         target.add(packet.getFromTop(i));
+      }
+      moves.add(new PlainMove(packet.size(), packet.getOrigin(), target));
    }
 
    /**
