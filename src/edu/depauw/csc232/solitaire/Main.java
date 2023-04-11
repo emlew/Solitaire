@@ -33,7 +33,7 @@ public class Main
       Box buttons = Box.createVerticalBox();
       frame.add(buttons);
 
-      JButton klondike = new JButton("Klondike");
+      JButton klondike = new JButton("Klondike (Test)");
       klondike.setAlignmentX(JButton.CENTER_ALIGNMENT);
       klondike.addActionListener(event -> {
          Game game = new KlondikeGame();
